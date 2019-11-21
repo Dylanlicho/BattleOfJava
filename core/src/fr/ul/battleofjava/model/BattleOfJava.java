@@ -18,7 +18,7 @@ public class BattleOfJava {
     private Board boardJ2;
 
     /**
-     * The constructor of the class BattleOfJava 
+     * The constructor of the class BattleOfJava
      */
     public BattleOfJava() {
 
@@ -44,7 +44,7 @@ public class BattleOfJava {
      * @param y the new Y position
      */
     public void setPosition(Player p, Ship s, int x, int y) {}
-    
+
     /**
      * The player shoot
      * @param currentPlayer the player who shoot
@@ -69,6 +69,6 @@ public class BattleOfJava {
      */
     public void save() {}
 
-    
+
 
 }
