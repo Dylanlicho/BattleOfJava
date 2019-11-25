@@ -1,5 +1,9 @@
 package fr.ul.battleofjava.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import fr.ul.battleofjava.model.board.Board;
 import fr.ul.battleofjava.model.player.Player;
 import fr.ul.battleofjava.model.ship.Ship;
@@ -7,6 +11,14 @@ import fr.ul.battleofjava.model.ship.Ship;
 import java.io.File;
 
 public class BattleOfJava {
+
+    public static final float WORLDWIDTH = 600f;
+    public static final float WORLDHEIGHT = 800f;
+    public static final float WINDOWWIDTH = Gdx.graphics.getWidth();
+    public static final float WINDOWHEIGHT = Gdx.graphics.getHeight();
+    public static final float UMWIDTH = WINDOWWIDTH / WORLDWIDTH;
+    public static final float UMHEIGHT = WINDOWHEIGHT / WORLDHEIGHT;
+
 
     //The first player
     private Player J1;
@@ -17,11 +29,16 @@ public class BattleOfJava {
     //The board of the player 2
     private Board boardJ2;
 
+    private World world;
+
     /**
      * The constructor of the class BattleOfJava
      */
     public BattleOfJava() {
-
+        int margin = 40;
+        this.world = new World(new Vector2(0f, 0f), true);
+        boardJ1 = new Board(world, margin);
+        boardJ2 = new Board(world, (int)WORLDHEIGHT - 10 * Board.TILEWIDTH - margin);
     }
 
     /**
@@ -29,6 +46,18 @@ public class BattleOfJava {
      * @param playerAmount the number of human player
      */
     public void startNewGame(int playerAmount) {}
+
+    public void draw(SpriteBatch sb) {
+
+        boardJ1.draw(sb);
+        boardJ2.draw(sb);
+
+
+    }
+
+    public World getWorld() {
+        return this.world;
+    }
 
     /**
      * Set the age of the game
