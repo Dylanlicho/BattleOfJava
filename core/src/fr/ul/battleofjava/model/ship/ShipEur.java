@@ -14,6 +14,6 @@ public class ShipEur extends Ship{
      * @param orientation Orientation of the ship
      */
     public ShipEur(int hp, int x, int y, int width, int heigth, int orientation) {
-        super(1, 2, 2, 1, 4, orientation);
+        super(hp, x, y, width, heigth, orientation);
     }
 }
