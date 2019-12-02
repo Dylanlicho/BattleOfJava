@@ -11,6 +11,9 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import fr.ul.battleofjava.model.BattleOfJava;
 
+import static fr.ul.battleofjava.model.BattleOfJava.WINDOWHEIGHT;
+import static fr.ul.battleofjava.model.BattleOfJava.WINDOWWIDTH;
+
 public class Game extends ApplicationAdapter {
 
 	private BattleOfJava boj;
@@ -24,6 +27,9 @@ public class Game extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		boj = new BattleOfJava();
 		this.camera = new OrthographicCamera();
+		camera.viewportWidth = WINDOWWIDTH;
+		camera.viewportHeight = WINDOWHEIGHT;
+		camera.position.set(WINDOWWIDTH / 2f, WINDOWHEIGHT / 2f, 0);
 		//img = new Texture("badlogic.jpg");
 	}
 
@@ -31,6 +37,7 @@ public class Game extends ApplicationAdapter {
 	public void render () {
 		Gdx.gl.glClearColor(0.4f, 0.85f, 0.85f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		camera.update();
 		batch.begin();
 
 		boj.draw(batch);
