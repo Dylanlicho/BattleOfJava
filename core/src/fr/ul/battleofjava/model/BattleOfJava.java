@@ -5,8 +5,11 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import fr.ul.battleofjava.listeners.GameListener;
 import fr.ul.battleofjava.model.board.Board;
+import fr.ul.battleofjava.model.board.Tile;
 import fr.ul.battleofjava.model.player.Player;
 import fr.ul.battleofjava.model.ship.Ship;
 
@@ -21,6 +24,7 @@ public class BattleOfJava {
     public static final float UMWIDTH = WINDOWWIDTH / WORLDWIDTH;
     public static final float UMHEIGHT = WINDOWHEIGHT / WORLDHEIGHT;
 
+    public static final int MARGIN = 40;
 
     //The first player
     private Player J1;
@@ -37,7 +41,7 @@ public class BattleOfJava {
      * The constructor of the class BattleOfJava
      */
     public BattleOfJava() {
-        int margin = 40;
+        int margin = MARGIN;
         this.world = new World(new Vector2(0f, 0f), true);
         boardJ1 = new Board(world, margin);
         boardJ2 = new Board(world, (int)WORLDHEIGHT - 10 * Board.TILEWIDTH - margin);
@@ -59,6 +63,10 @@ public class BattleOfJava {
 
     public World getWorld() {
         return this.world;
+    }
+
+    public Tile getTileByBody(Body b) {
+        return this.boardJ1.getTileByBody(b);
     }
 
     /**

@@ -10,6 +10,7 @@ public abstract class Tile implements Cloneable {
 
     protected int x;
     protected int y;
+    protected boolean isClicked;
     protected World w;
     protected BodyDef bodyDef;
     protected FixtureDef fixtureDef;
@@ -20,6 +21,7 @@ public abstract class Tile implements Cloneable {
         this.x = posX;
         this.y = posY;
         this.w = world;
+        this.isClicked = false;
     }
 
     protected void constructBody() {
@@ -49,6 +51,10 @@ public abstract class Tile implements Cloneable {
         this.y = y;
     }
 
+    public void setIsClicked() {
+        this.isClicked = true;
+    }
+
     public Body getBody() {
         return this.body;
     }
@@ -56,7 +62,9 @@ public abstract class Tile implements Cloneable {
     public void draw(SpriteBatch sb) {
 
         sb.draw(TextureFactory.getInstance().getTile(), x * UMWIDTH, y * UMHEIGHT, Board.TILEWIDTH * UMWIDTH, Board.TILEWIDTH * UMHEIGHT);
-
+        if (this.isClicked) {
+            sb.draw(TextureFactory.getInstance().getTileClicked(), x * UMWIDTH, y * UMHEIGHT, Board.TILEWIDTH * UMWIDTH, Board.TILEWIDTH * UMHEIGHT);
+        }
     }
 
     public abstract Tile clone();

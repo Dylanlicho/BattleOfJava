@@ -8,8 +8,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
+import fr.ul.battleofjava.listeners.GameListener;
 import fr.ul.battleofjava.model.BattleOfJava;
+import fr.ul.battleofjava.model.board.Tile;
 
 import static fr.ul.battleofjava.model.BattleOfJava.WINDOWHEIGHT;
 import static fr.ul.battleofjava.model.BattleOfJava.WINDOWWIDTH;
@@ -30,7 +34,16 @@ public class Game extends ApplicationAdapter {
 		camera.viewportWidth = WINDOWWIDTH;
 		camera.viewportHeight = WINDOWHEIGHT;
 		camera.position.set(WINDOWWIDTH / 2f, WINDOWHEIGHT / 2f, 0);
+		Gdx.input.setInputProcessor(new GameListener(camera, this));
 		//img = new Texture("badlogic.jpg");
+	}
+
+	public World getWorld() {
+		return this.boj.getWorld();
+	}
+
+	public Tile getTileByBody(Body b) {
+		return this.boj.getTileByBody(b);
 	}
 
 	@Override

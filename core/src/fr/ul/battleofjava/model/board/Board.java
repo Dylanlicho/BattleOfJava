@@ -1,11 +1,13 @@
 package fr.ul.battleofjava.model.board;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static fr.ul.battleofjava.model.BattleOfJava.MARGIN;
 import static fr.ul.battleofjava.model.BattleOfJava.WORLDWIDTH;
 
 public class Board {
@@ -32,15 +34,24 @@ public class Board {
                 y += TILEWIDTH;
             }
         }
-        for (Tile ti: this.tiles) {
+        if (initY == MARGIN) {
+            for (Tile ti : this.tiles) {
 
-            ti.constructBody();
+                ti.constructBody();
 
+            }
         }
 
     }
 
-
+    public Tile getTileByBody(Body b) {
+        for (Tile t: this.tiles) {
+            if (t.getBody() == b) {
+                return t;
+            }
+        }
+        return null;
+    }
 
     public void draw(SpriteBatch sb) {
 

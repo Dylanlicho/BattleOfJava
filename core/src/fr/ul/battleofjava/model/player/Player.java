@@ -1,4 +1,4 @@
 package fr.ul.battleofjava.model.player;
 
-public abstract class Player {
+public abstract class Player  {
 }
