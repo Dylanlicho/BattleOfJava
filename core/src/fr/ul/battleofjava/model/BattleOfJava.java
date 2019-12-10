@@ -1,15 +1,12 @@
 package fr.ul.battleofjava.model;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
-import fr.ul.battleofjava.listeners.GameListener;
 import fr.ul.battleofjava.model.board.Board;
 import fr.ul.battleofjava.model.board.Tile;
+import fr.ul.battleofjava.model.factory.GameFactory;
 import fr.ul.battleofjava.model.player.Player;
 import fr.ul.battleofjava.model.ship.Ship;
 
@@ -17,14 +14,6 @@ import java.io.File;
 
 public class BattleOfJava {
 
-    public static final float WORLDWIDTH = 600f;
-    public static final float WORLDHEIGHT = 800f;
-    public static final float WINDOWWIDTH = Gdx.graphics.getWidth();
-    public static final float WINDOWHEIGHT = Gdx.graphics.getHeight();
-    public static final float UMWIDTH = WINDOWWIDTH / WORLDWIDTH;
-    public static final float UMHEIGHT = WINDOWHEIGHT / WORLDHEIGHT;
-
-    public static final int MARGIN = 40;
 
     //The first player
     private Player J1;
@@ -41,17 +30,17 @@ public class BattleOfJava {
      * The constructor of the class BattleOfJava
      */
     public BattleOfJava() {
-        int margin = MARGIN;
         this.world = new World(new Vector2(0f, 0f), true);
-        boardJ1 = new Board(world, margin);
-        boardJ2 = new Board(world, (int)WORLDHEIGHT - 10 * Board.TILEWIDTH - margin);
     }
 
     /**
      * Start a new game
      * @param playerAmount the number of human player
      */
-    public void startNewGame(int playerAmount) {}
+    public void startNewGame(int playerAmount) {
+        boardJ1 = new Board(world, GameFactory.MARGIN);
+        boardJ2 = new Board(world, (int)GameFactory.WORLDHEIGHT - 10 * GameFactory.TILEWIDTH - GameFactory.MARGIN);
+    }
 
     public void draw(SpriteBatch sb) {
 
@@ -61,10 +50,19 @@ public class BattleOfJava {
 
     }
 
+
+    /**
+     * @return the world
+     */
     public World getWorld() {
         return this.world;
     }
 
+
+    /**
+     * @param b a body
+     * @return the Tile corresponding to the body
+     */
     public Tile getTileByBody(Body b) {
         return this.boardJ1.getTileByBody(b);
     }

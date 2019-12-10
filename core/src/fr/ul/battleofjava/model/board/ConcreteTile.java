@@ -4,7 +4,12 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class ConcreteTile extends Tile {
 
-
+    /**
+     * The constructore of a concrete tile
+     * @param world the world
+     * @param posX the position in X
+     * @param posY the position in Y
+     */
     public ConcreteTile(World world, int posX, int posY) {
         super(world, posX, posY);
     }
