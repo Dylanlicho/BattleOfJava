@@ -2,6 +2,7 @@ package fr.ul.battleofjava.model.board;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.*;
+import fr.ul.battleofjava.model.factory.EnumState;
 import fr.ul.battleofjava.model.factory.TextureFactory;
 
 import static fr.ul.battleofjava.model.BattleOfJava.*;
@@ -16,6 +17,7 @@ public abstract class Tile implements Cloneable {
     protected FixtureDef fixtureDef;
     protected PolygonShape shape;
     protected Body body;
+    protected EnumState state;
 
     public Tile(World world, int posX, int posY) {
         this.x = posX;
@@ -53,6 +55,22 @@ public abstract class Tile implements Cloneable {
 
     public void setIsClicked() {
         this.isClicked = true;
+    }
+
+    /**
+     * True if the case hasn't be clicked, false else
+     * @return True if the case hasn't be clicked, false else
+     */
+    public boolean isEmpty(){
+        return this.state == EnumState.EMPTY;
+    }
+
+    /**
+     * Set the state of the tile
+     * @param state State of the tile
+     */
+    public void setState(EnumState state){
+        this.state = state;
     }
 
     public Body getBody() {

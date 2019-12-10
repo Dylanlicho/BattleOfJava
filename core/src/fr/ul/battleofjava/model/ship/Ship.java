@@ -1,13 +1,22 @@
 package fr.ul.battleofjava.model.ship;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import fr.ul.battleofjava.model.factory.Century15SFactory;
+import fr.ul.battleofjava.model.factory.TextureFactory;
+
+import javax.xml.soap.Text;
+
 public abstract class Ship {
 
-    private int hp;
-    private int x;
-    private int y;
-    private int width;
-    private int heigth;
-    private int orientation;
+    protected int hp;
+    protected int x;
+    protected int y;
+    protected int width;
+    protected int heigth;
+    protected int orientation;
+    protected Texture texture;
+    protected String type;
 
     /**
      * Constructor of the Ship
@@ -18,13 +27,14 @@ public abstract class Ship {
      * @param heigth Height of the ship
      * @param orientation Orientation of the ship
      */
-    public Ship(int hp, int x, int y, int width, int heigth, int orientation){
+    public Ship(int hp, int x, int y, int width, int heigth, int orientation,String type){
         this.hp = hp;
         this.x = x;
         this.y = y;
         this.width = width;
         this.heigth = heigth;
         this.orientation = orientation;
+        this.type = type;
     }
 
     /**
@@ -51,5 +61,14 @@ public abstract class Ship {
         this.x = x;
         this.y = y;
     }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
 
 }

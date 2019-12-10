@@ -3,6 +3,13 @@ package fr.ul.battleofjava.model.board;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import fr.ul.battleofjava.model.factory.Century15SFactory;
+import fr.ul.battleofjava.model.factory.GameFactory;
+import fr.ul.battleofjava.model.ship.Ship;
+import fr.ul.battleofjava.model.ship.century15s.Caravelle;
+import fr.ul.battleofjava.model.ship.century15s.Drakkar;
+import fr.ul.battleofjava.model.ship.century15s.Flette;
+import fr.ul.battleofjava.model.ship.century15s.Sailboat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +24,6 @@ public class Board {
     List<Tile> tiles;
 
     public Board(World world, int initY) {
-
         this.tiles = new ArrayList<Tile>();
         Tile t = new ConcreteTile(world,0, 0);
         this.tiles.add(t);
@@ -60,5 +66,7 @@ public class Board {
         }
 
     }
+
+
 
 }

@@ -78,7 +78,7 @@ public class GameListener implements InputProcessor {
         for (Body b: this.bodyList) {
             if (tile == null) {
                 tile = this.game.getTileByBody(b);
-                if (tile != null) {
+                if (tile != null && !tile.isEmpty()) {
                     tile.setIsClicked();
                 }
             }
