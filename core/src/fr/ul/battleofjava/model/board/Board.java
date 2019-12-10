@@ -3,19 +3,22 @@ package fr.ul.battleofjava.model.board;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import fr.ul.battleofjava.model.factory.GameFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static fr.ul.battleofjava.model.BattleOfJava.MARGIN;
-import static fr.ul.battleofjava.model.BattleOfJava.WORLDWIDTH;
-
 public class Board {
 
-    public static final int TILEWIDTH = 30;
+    //The list of the Tile which composed the board
+    private List<Tile> tiles;
 
-    List<Tile> tiles;
 
+    /**
+     * The constroctor of the Board
+     * @param world the world
+     * @param initY the initial Y
+     */
     public Board(World world, int initY) {
 
         this.tiles = new ArrayList<Tile>();
@@ -24,17 +27,17 @@ public class Board {
         for (int i = 0 ; i < 99 ; i++) {
             this.tiles.add(t.clone());
         }
-        int x = TILEWIDTH + ((int)WORLDWIDTH / 5);
+        int x = GameFactory.TILEWIDTH + ((int) GameFactory.WORLDWIDTH / 5);
         int y = initY;
         for (int i = 0 ; i < 100 ; i++) {
             this.tiles.get(i).setPosition(x, y);
-            x += TILEWIDTH;
-            if (x >= TILEWIDTH * 11 + ((int)WORLDWIDTH / 5)) {
-                x = TILEWIDTH + ((int)WORLDWIDTH / 5);
-                y += TILEWIDTH;
+            x += GameFactory.TILEWIDTH;
+            if (x >= GameFactory.TILEWIDTH * 11 + ((int)GameFactory.WORLDWIDTH / 5)) {
+                x = GameFactory.TILEWIDTH + ((int)GameFactory.WORLDWIDTH / 5);
+                y += GameFactory.TILEWIDTH;
             }
         }
-        if (initY == MARGIN) {
+        if (initY == GameFactory.MARGIN) {
             for (Tile ti : this.tiles) {
 
                 ti.constructBody();
@@ -44,6 +47,11 @@ public class Board {
 
     }
 
+
+    /**
+     * @param b a body
+     * @return the Tile corresponding to the body
+     */
     public Tile getTileByBody(Body b) {
         for (Tile t: this.tiles) {
             if (t.getBody() == b) {
@@ -53,6 +61,11 @@ public class Board {
         return null;
     }
 
+
+    /**
+     * Draw the board
+     * @param sb the sprite batch
+     */
     public void draw(SpriteBatch sb) {
 
         for (Tile t: this.tiles) {
