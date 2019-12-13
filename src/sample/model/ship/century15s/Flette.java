@@ -13,7 +13,7 @@ public class Flette extends Ship {
      * @param orientation Orientation of the ship
      */
     public Flette(int hp, int x, int y, int orientation) {
-        super(hp, x, y, 1, Century15SFactory.WIDTHFLETTE, orientation,"flette");
+        super(hp, x, y, Century15SFactory.WIDTHFLETTE, Century15SFactory.HEIGHTFLETTE, orientation,"flette");
     }
 
 

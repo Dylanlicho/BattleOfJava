@@ -62,5 +62,11 @@ public abstract class Ship {
         return x;
     }
 
+    public int getWidth() {
+        return width;
+    }
 
+    public int getHeigth() {
+        return heigth;
+    }
 }

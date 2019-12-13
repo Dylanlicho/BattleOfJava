@@ -1,6 +1,8 @@
 package sample.model.player;
 
 
+import sample.model.BattleOfJava;
+
 /**
  * The class of the player
  */
@@ -18,6 +20,8 @@ public abstract class Player  {
     public void win() {
 
     }
+
+    public abstract void shoot(BattleOfJava battle, int x, int y);
 
     public int getNum() {
         return num;

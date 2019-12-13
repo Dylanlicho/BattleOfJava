@@ -13,6 +13,8 @@ public class ViewMenu implements Observer {
     private BattleOfJava battleOfJava;
     //The stage
     private Stage stage;
+    //The stage of the view of the new game
+    private Stage stageNewGame;
 
 
     /**
@@ -20,8 +22,9 @@ public class ViewMenu implements Observer {
      * @param battleOfJava the battle of java
      * @param s the stage
      */
-    public ViewMenu (BattleOfJava battleOfJava, Stage s) {
+    public ViewMenu (BattleOfJava battleOfJava, Stage s, Stage stageNewGame) {
         setBattleOfJava(battleOfJava);
+        setStageNewGame(stageNewGame);
         setStage(s);
         getBattleOfJava().addObserver(this);
     }
@@ -57,6 +60,22 @@ public class ViewMenu implements Observer {
      */
     private void setStage(Stage s) {
         stage = s;
+    }
+
+
+    /**
+     * @return the stage of the view of the new game
+     */
+    public Stage getStageNewGame() {
+        return stageNewGame;
+    }
+
+    /**
+     * set the stage of the new game
+     * @param stageNewGame the stage
+     */
+    public void setStageNewGame(Stage stageNewGame) {
+        this.stageNewGame = stageNewGame;
     }
 
 
@@ -112,7 +131,8 @@ public class ViewMenu implements Observer {
      * create a new game
      */
     public void newGame() {
-        System.out.println("new game");
+        getStage().close();
+        getStageNewGame().show();
     }
 
 

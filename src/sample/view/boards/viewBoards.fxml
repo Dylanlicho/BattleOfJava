@@ -3,7 +3,7 @@
 
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.battle.ViewBattle">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.boards.ViewBoards">
 
       <GridPane fx:id="boardJ1" gridLinesVisible="true" layoutX="150.0" layoutY="338.0">
       </GridPane>

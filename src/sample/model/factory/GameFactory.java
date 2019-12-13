@@ -12,6 +12,8 @@ public class GameFactory {
     public static final int CENTURY15S = 15;
     public static final int CENTURY20S = 20;
 
+    public static final int TACTICRANDOM = 0;
+    public static final int TACTICCROSS = 1;
 
 
     public static final float WORLDWIDTH = 600f;
@@ -22,5 +24,7 @@ public class GameFactory {
 
     public static final int BOARDSIZE = 10;
     public static final int NBTILE = 100;
+
+    public static final int NBSHIP = 7;
 
 }

@@ -1,6 +1,7 @@
 package sample.model.player;
 
 
+import sample.model.BattleOfJava;
 import sample.model.fireTactics.FireTactics;
 
 /**
@@ -13,6 +14,17 @@ public class AI extends Player {
 
     public AI(int num) {
         super(num);
+    }
+
+    @Override
+    public void shoot(BattleOfJava battle, int x, int y) {
+        System.out.println("shoot of AI");
+        try {
+            wait(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("AI have shoot");
     }
 
 

@@ -12,7 +12,7 @@ public class Caravelle extends Ship {
      * @param orientation Orientation of the ship
      */
     public Caravelle(int hp, int x, int y, int orientation) {
-        super(hp, x, y, 1, Century15SFactory.WIDTHCARAVELLE, orientation,"caravelle");
+        super(hp, x, y, Century15SFactory.WIDTHCARAVELLE, Century15SFactory.HEIGHTCARAVELLE, orientation,"caravelle");
     }
 
 }

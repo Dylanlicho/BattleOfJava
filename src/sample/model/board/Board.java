@@ -15,27 +15,26 @@ public class Board {
 
     /**
      * Constructor of the Board
-     * @param initY the initial Y
      */
-    public Board(int initY) {
+    public Board() {
         this.tiles = new ArrayList<>();
         Tile t = new ConcreteTile(0, 0);
         this.tiles.add(t);
         for (int i = 0 ; i < GameFactory.NBTILE - 1 ; i++) {
             this.tiles.add(t.clone());
         }
-        int x = GameFactory.TILEWIDTH + ((int) GameFactory.WORLDWIDTH / 5);
-        int y = initY;
+        int x = 0;
+        int y = 0;
         for (int i = 0 ; i < GameFactory.NBTILE ; i++) {
             this.tiles.get(i).setPosition(x, y);
-            x += GameFactory.TILEWIDTH;
-            if (x >= GameFactory.TILEWIDTH * 11 + ((int)GameFactory.WORLDWIDTH / 5)) {
-                x = GameFactory.TILEWIDTH + ((int)GameFactory.WORLDWIDTH / 5);
-                y += GameFactory.TILEWIDTH;
+            x ++;
+            if (x >= GameFactory.NBTILE / GameFactory.BOARDSIZE) {
+                x = 0;
+                y ++;
             }
         }
 
-        this.shipsPlayer = new ArrayList<>(7);
+        this.shipsPlayer = new ArrayList<>(GameFactory.NBSHIP);
 
     }
 
@@ -97,12 +96,33 @@ public class Board {
             }
             i++;
         }
-        if (find) return tile;
+        if (find)  return tile;
         else return null;
     }
 
+    /**
+     * @param x the x position
+     * @param y the y position
+     * @return the ship in (x,y)
+     */
     public Ship getShip(int x, int y) {
-        return null;
+        boolean find = false;
+        Ship ship = null;
+        int i = 0;
+        while (!find && i < GameFactory.NBSHIP) {
+            ship = shipsPlayer.get(i);
+            int xS = ship.getX();
+            int yS = ship.getY();
+            int w = ship.getWidth();
+            int h = ship.getHeigth();
+
+            if (xS <= x && x <= xS + w - 1 && yS <= y && y <= yS + h - 1) {
+                find = true;
+            }
+            i++;
+        }
+        if (find) return ship;
+        else return null;
     }
 
 }

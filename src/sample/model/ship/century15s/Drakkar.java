@@ -12,7 +12,7 @@ public class Drakkar extends Ship {
      * @param orientation Orientation of the ship
      */
     public Drakkar(int hp, int x, int y, int orientation) {
-        super(hp, x, y, 1, Century15SFactory.WIDTHDRAKKAR, orientation,"drakkar");
+        super(hp, x, y,  Century15SFactory.WIDTHDRAKKAR, Century15SFactory.HEIGHTDRAKKAR, orientation,"drakkar");
     }
 
 }

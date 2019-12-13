@@ -14,7 +14,7 @@ public class Sailboat extends Ship {
      * @param orientation Orientation of the ship
      */
     public Sailboat(int hp, int x, int y, int orientation) {
-        super(hp, x, y, 1, Century15SFactory.WIDTHSAILBOAT, orientation,"sailboat");
+        super(hp, x, y,  Century15SFactory.WIDTHSAILBOAT, Century15SFactory.HEIGHTSAILBOAT, orientation,"sailboat");
     }
 
 }

@@ -4,16 +4,20 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import sample.model.BattleOfJava;
-import sample.view.battle.ViewBattle;
+import sample.view.boards.ViewBoards;
 import sample.view.menu.ViewMenu;
+import sample.view.newGame.ViewNewGame;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        Stage stageNewGame = new Stage();
+
         VBox root = FXMLLoader.load(getClass().getResource("view/sample.fxml"));
 
         BattleOfJava battle = new BattleOfJava();
@@ -21,20 +25,29 @@ public class Main extends Application {
         //load du menu
         FXMLLoader loaderVueMenu = new FXMLLoader();
         loaderVueMenu.setLocation(getClass().getResource("view/menu/viewMenu.fxml"));
-        loaderVueMenu.setControllerFactory(iC->new ViewMenu(battle, primaryStage));
+        loaderVueMenu.setControllerFactory(iC->new ViewMenu(battle, primaryStage, stageNewGame));
         Node viewMenu = loaderVueMenu.load();
 
         //load of the boards view
         FXMLLoader loaderBattle = new FXMLLoader();
-        loaderBattle.setLocation(getClass().getResource("view/battle/viewBattle.fxml"));
-        loaderBattle.setControllerFactory(iC->new ViewBattle(battle));
+        loaderBattle.setLocation(getClass().getResource("view/boards/viewBoards.fxml"));
+        loaderBattle.setControllerFactory(iC->new ViewBoards(battle));
         Node viewBattle = loaderBattle.load();
 
         root.getChildren().addAll(viewMenu, viewBattle);
-
         primaryStage.setTitle("Battle Of Java");
         primaryStage.setScene(new Scene(root, 600, 800));
-        primaryStage.show();
+
+        //load of the boards view
+        FXMLLoader loaderNewGame = new FXMLLoader();
+        loaderNewGame.setLocation(getClass().getResource("view/newGame/viewNewGame.fxml"));
+        loaderNewGame.setControllerFactory(iC->new ViewNewGame(battle, primaryStage, stageNewGame));
+        AnchorPane viewNewGame = loaderNewGame.load();
+
+        stageNewGame.setTitle("Battle Of Java");
+        stageNewGame.setScene(new Scene(viewNewGame, 600, 800));
+
+        stageNewGame.show();
     }
 
 

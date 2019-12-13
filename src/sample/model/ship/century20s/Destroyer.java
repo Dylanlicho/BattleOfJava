@@ -1,7 +1,6 @@
 package sample.model.ship.century20s;
 
 
-import sample.model.factory.Century20SFactory;
 import sample.model.ship.Ship;
 
 public class Destroyer extends Ship {
@@ -14,6 +13,6 @@ public class Destroyer extends Ship {
      * @param orientation Orientation of the ship
      */
     public Destroyer(int hp, int x, int y, int orientation) {
-        super(hp, x, y, 1, Century20SFactory.WIDTHDESTROYER, orientation, "destroyer");
+        super(hp, x, y, Century20SFactory.WIDTHDESTROYER, Century20SFactory.HEIGHTDESTROYER, orientation, "destroyer");
     }
 }

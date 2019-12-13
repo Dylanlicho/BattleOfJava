@@ -1,12 +1,12 @@
-package sample.view.battle;
+package sample.view.boards;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import sample.model.BattleOfJava;
-import sample.model.board.Tile;
 import sample.model.board.EnumState;
+import sample.model.board.Tile;
 import sample.model.factory.GameFactory;
 
 
@@ -16,7 +16,7 @@ import java.util.Observer;
 /**
  * The view of the battle (the two boards)
  */
-public class ViewBattle implements Observer {
+public class ViewBoards implements Observer {
 
     //The game
     private BattleOfJava battleOfJava;
@@ -33,7 +33,7 @@ public class ViewBattle implements Observer {
      * The constructor of the view
      * @param battleOfJava the game
      */
-    public ViewBattle(BattleOfJava battleOfJava) {
+    public ViewBoards(BattleOfJava battleOfJava) {
         setBattleOfJava(battleOfJava);
         getBattleOfJava().addObserver(this);
     }
@@ -42,19 +42,20 @@ public class ViewBattle implements Observer {
      * Initialisation of the boards
      */
     public void initialize() {
+        initialiseBoard(getBoardJ1());
+        initialiseBoard(getBoardJ2());
+
+        addPanes();
+    }
+
+    /**
+     * add panes to the grid
+     */
+    private void addPanes() {
         int size = GameFactory.BOARDSIZE;
-
-        initialiseBoard(boardJ1);
-        initialiseBoard(boardJ2);
-
         for (int i = 0 ; i < size ; i++) {
             for (int j = 0; j < size; j++) {
                 addPaneJ1(i, j);
-            }
-        }
-
-        for (int i = 0 ; i < size ; i++) {
-            for (int j = 0; j < size; j++) {
                 addPaneJ2(i, j);
             }
         }
@@ -92,17 +93,11 @@ public class ViewBattle implements Observer {
      */
     private void addPaneJ1(int colIndex, int rowIndex) {
         Pane pane = new Pane();
-        Tile tile = battleOfJava.getTileBoardJ1(colIndex, rowIndex);
-        if (tile != null) {
-            if (tile.getState() == EnumState.HIT) {
-                Image image = new Image("images/hit.png");
-                pane.getChildren().add(new ImageView(image));
-            } else if (tile.getState() == EnumState.MISS) {
-                Image image = new Image("images/miss.png");
-                pane.getChildren().add(new ImageView(image));
-            }
+        if (getBattleOfJava().isStart()) {
+            Tile tile = getBattleOfJava().getTileBoardJ1(colIndex, rowIndex);
+            printTile(pane, colIndex, rowIndex, getBoardJ1(), tile);
         }
-        boardJ1.add(pane, colIndex, rowIndex);
+        else getBoardJ1().add(pane, colIndex, rowIndex);
     }
 
     /**
@@ -116,17 +111,32 @@ public class ViewBattle implements Observer {
         pane.setOnMouseClicked(e -> {
             boardJ2Click(colIndex, rowIndex);
         });
-        Tile tile = battleOfJava.getTileBoardJ2(colIndex, rowIndex);
+        if (getBattleOfJava().isStart()) {
+            Tile tile = getBattleOfJava().getTileBoardJ2(colIndex, rowIndex);
+            printTile(pane, colIndex, rowIndex, getBoardJ2(), tile);
+        }
+        else getBoardJ2().add(pane, colIndex, rowIndex);
+    }
+
+    /**
+     * print the state of a tile
+     * @param pane the pane to print the state
+     * @param colIndex the col of the tile
+     * @param rowIndex the row of th tile
+     * @param grid the grid of the current tile
+     * @param tile the tile
+     */
+    private void printTile(Pane pane, int colIndex, int rowIndex, GridPane grid, Tile tile) {
         if (tile != null) {
-            if (tile.getState() == EnumState.HIT) {
+            if (tile.getState().ordinal() == EnumState.HIT.ordinal()) {
                 Image image = new Image("images/hit.png");
                 pane.getChildren().add(new ImageView(image));
-            } else if (tile.getState() == EnumState.MISS) {
+            } else if (tile.getState().ordinal() == EnumState.MISS.ordinal()) {
                 Image image = new Image("images/miss.png");
                 pane.getChildren().add(new ImageView(image));
             }
         }
-        boardJ2.add(pane, colIndex, rowIndex);
+        grid.add(pane, colIndex, rowIndex);
     }
 
     /**
@@ -135,7 +145,9 @@ public class ViewBattle implements Observer {
      * @param row the row of the cell
      */
     private void boardJ2Click(int col, int row) {
-
+        if(getBattleOfJava().getTileBoardJ2(col, row).getState() == EnumState.EMPTY) {
+            getBattleOfJava().getCurrentPlayer().shoot(battleOfJava, col, row);
+        }
     }
 
     /**
@@ -154,8 +166,40 @@ public class ViewBattle implements Observer {
         return battleOfJava;
     }
 
+    /**
+     * @return the board of the player 1
+     */
+    public GridPane getBoardJ1() {
+        return boardJ1;
+    }
+
+    /**
+     * @return  boardJ1 the board of the player 2
+     */
+    private GridPane getBoardJ2() {
+        return boardJ2;
+    }
+
+
+    /**
+     * update the boards
+     */
+    private void updateGrid() {
+        getBoardJ1().setGridLinesVisible(false);
+        getBoardJ2().setGridLinesVisible(false);
+        getBoardJ1().getChildren().clear();
+        getBoardJ2().getChildren().clear();
+
+        addPanes();
+    }
+
+
+
     @Override
     public void update(Observable o, Object arg) {
         setBattleOfJava((BattleOfJava)o);
+        updateGrid();
+        getBoardJ1().setGridLinesVisible(true);
+        getBoardJ2().setGridLinesVisible(true);
     }
 }

@@ -18,6 +18,7 @@ public abstract class Tile implements Cloneable {
     public Tile(int posX, int posY) {
         this.x = posX;
         this.y = posY;
+        state = EnumState.EMPTY;
     }
 
 
