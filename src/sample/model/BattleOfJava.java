@@ -3,11 +3,14 @@ package sample.model;
 
 import sample.model.board.Board;
 import sample.model.board.Tile;
+import sample.model.factory.AgeFactory;
 import sample.model.factory.GameFactory;
+import sample.model.player.Human;
 import sample.model.player.Player;
 import sample.model.ship.Ship;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Observable;
 
 public class BattleOfJava extends Observable {
@@ -21,6 +24,10 @@ public class BattleOfJava extends Observable {
     private Board boardJ1;
     //The board of the player 2
     private Board boardJ2;
+    // Age of the ship
+    private int age;
+
+
 
     /**
      * The constructor of the class BattleOfJava
@@ -36,13 +43,21 @@ public class BattleOfJava extends Observable {
     public void startNewGame(int playerAmount) {
         boardJ1 = new Board(GameFactory.MARGIN);
         boardJ2 = new Board((int)GameFactory.WORLDHEIGHT - 10 * GameFactory.TILEWIDTH - GameFactory.MARGIN);
+
     }
 
     /**
      * Set the age of the game
      * @param age the age
      */
-    public void setAge(int age) {}
+    public void setAge(int age, Player player) {
+        this.age = age;
+        if(player.getNum() == 1){
+            boardJ1.setAge(age);
+        }else{
+            boardJ2.setAge(age);
+        }
+    }
 
     /**
      * Set the position of a ship

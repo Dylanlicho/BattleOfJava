@@ -1,5 +1,6 @@
 package sample.model.board;
 
+import sample.model.factory.AgeFactory;
 import sample.model.factory.GameFactory;
 import sample.model.ship.Ship;
 
@@ -10,7 +11,7 @@ public class Board {
 
     //The list of the Tile which composed the board
     private List<Tile> tiles;
-    private List<Ship> ships;
+    private List<Ship> shipsPlayer;
 
     /**
      * Constructor of the Board
@@ -34,8 +35,12 @@ public class Board {
             }
         }
 
-        this.ships = new ArrayList<>(7);
+        this.shipsPlayer = new ArrayList<>(7);
 
+    }
+
+    public void setAge(int age){
+        shipsPlayer = AgeFactory.createNewShip(age);
     }
 
     /**
@@ -67,7 +72,7 @@ public class Board {
      */
     public boolean isAllSunk() {
         boolean isAllSunk = true;
-        for(Ship s : ships){
+        for(Ship s : shipsPlayer){
             if(!s.isSunk()){
                 isAllSunk = false;
             }

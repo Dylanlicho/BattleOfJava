@@ -6,6 +6,12 @@ package sample.model.player;
  */
 public abstract class Player  {
 
+    int num;
+
+    public Player(int num){
+        this.num = num;
+    }
+
     /**
      * The player win the game
      */
@@ -13,4 +19,7 @@ public abstract class Player  {
 
     }
 
+    public int getNum() {
+        return num;
+    }
 }

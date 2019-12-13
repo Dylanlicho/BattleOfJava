@@ -5,4 +5,7 @@ package sample.model.player;
  */
 public class Human extends Player {
 
+    public Human(int num) {
+        super(num);
+    }
 }

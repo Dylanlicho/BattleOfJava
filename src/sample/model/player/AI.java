@@ -11,6 +11,10 @@ public class AI extends Player {
     //The fire tactic of the AI
     private FireTactics tactic;
 
+    public AI(int num) {
+        super(num);
+    }
+
 
     /**
      * set the fire tactic of the AI
