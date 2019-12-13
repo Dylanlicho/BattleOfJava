@@ -1,0 +1,10 @@
+@startuml
+
+hide footbox
+
+Actor User
+
+User -> BattleOfJava: Save a game
+BattleOfJava -> BattleOfJava: save()
+
+@enduml

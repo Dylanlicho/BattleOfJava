@@ -1,0 +1,35 @@
+   ##CU :
+- Choix de l'époque 
+- Placement d'un bateau 
+- Tir d'un bateau 
+- Choix de la tactique de tir de l'ordi
+- Sauvegarde d’une partie
+- Reprise d’une partie
+- Commencer une nouvelle partie (va avec les CUs 1 et 2)
+
+
+   ##Idées
+Abstract factory + factorys pour la création des bateaux
+Strategy pour les époques
+Utilisation de Strategy pour les stratégies de tir de l’IA
+Prototype pour les cases
+
+Observable/Observer pour la MAJ automatique de l’IG (peut être pas nécessaire avec LibGDX, à voir)
+Même idée que labyrinthe pour les cases du plateau de jeu
+
+Classe principale : BatailleDeJava (sample.Main)
+ → Contient ces deux attributs : hauteur et largeur en cases, nb cases calculé automatiquement
+Classes : 
+- Bateau (connaît les coordonnées de toutes ses cases) 
+- Epoque (interface) 
+  Différentes classes qui implémentent Epoque 
+- Case
+- Le(s) Singleton(s) pour le(s) factory
+- StrategieTir pour la tactique de tir de l’IA
+  Différente classes qui implémentent StrategieTir
+- Une classe pour l’ordi, avec ses comportements
+
+
+
+
+

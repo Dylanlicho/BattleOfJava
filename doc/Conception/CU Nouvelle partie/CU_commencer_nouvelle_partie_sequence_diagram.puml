@@ -1,0 +1,95 @@
+@startuml
+
+hide footbox
+
+actor Player
+
+activate Player
+Player -> BattleOfJava: startNewGame(int playerAmount)
+activate BattleOfJava
+
+loop 2 times
+
+BattleOfJava -> BattleOfJava: createNewBoard(Player p)
+
+BattleOfJava -> Board: <<create>> \n new()
+activate Board
+
+Board -> Board: createTiles()
+
+Board -> Tile: <<create>> \n new()
+
+loop 99 times
+
+Board -> Tile: clone()
+activate Tile
+
+Tile -> Board: returns clone
+deactivate Tile
+
+deactivate Board
+
+end
+
+end
+
+BattleOfJava -> Player: sends age selection system
+deactivate BattleOfJava
+
+Player -> BattleOfJava: setAge(Player p, int age)
+activate BattleOfJava
+
+loop 2 times
+
+BattleOfJava -> Board: setAge(Player p, int age)
+activate Board
+
+loop 7 times
+
+Board -> AgeFactory: createNewShip(Player p, int age)
+activate AgeFactory
+
+AgeFactory -> Ship: <<create>> \n new()
+activate Ship
+
+Ship -> AgeFactory: returns new ship
+deactivate Ship
+
+AgeFactory -> Board: returns new ship
+deactivate AgeFactory
+
+Board -> Board: addShip(Ship s, Player p)
+
+end
+
+Board -> BattleOfJava: age successfully set
+deactivate Board
+
+end
+
+BattleOfJava -> Player: notifies of successful age selection
+deactivate BattleOfJava
+
+BattleOfJava -> Player: sends ship placement system
+
+loop 14 times
+
+Player -> BattleOfJava: setShipPosition(Player p, Ship s, int x, int y)
+activate BattleOfJava
+
+BattleOfJava -> Board: setShipPosition(Ship s, int x, int y)
+activate Board
+
+Board -> Ship: setShipPosition(int x, int y)
+
+Board -> BattleOfJava: position successfully set
+deactivate Board
+
+BattleOfJava -> Player: notifies of successful placement
+deactivate BattleOfJava
+
+end
+
+deactivate Player
+
+@enduml

@@ -1,0 +1,9 @@
+@startuml
+
+Actor Player
+Player -> BattleOfJava : the user wants to choose the fire tactics for the AI
+BattleOfJava -> BattleOfJava: setFireTactics(AI ai, FireTactics ft)
+BattleOfJava -> AI : setFireTactics(FireTactics ft)
+BattleOfJava --> Player : The fire tactics change
+
+@enduml

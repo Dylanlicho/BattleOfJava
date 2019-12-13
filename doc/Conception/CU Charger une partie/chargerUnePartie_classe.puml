@@ -1,0 +1,28 @@
+@startuml
+abstract class Player
+AI --> Player
+Human --> Player
+
+BattleOfJava --"2" Player
+BattleOfJava --"2" Board
+Board --"100" Tile
+
+Board --"7" Ship
+abstract class Ship
+Ship1 --> Ship
+Ship2 --> Ship
+ShipN --> Ship
+
+class AgeFactory << (S,#FF7700) Singleton >>
+class ShipFactory20s << (S,#FF7700) Singleton >>
+class ShipFactory15s << (S,#FF7700) Singleton >>
+ShipFactory15s --> AgeFactory
+ShipFactory20s --> AgeFactory
+
+class BattleOfJava {
+	void load()
+	void loadFile(File file)
+}
+
+@enduml
+

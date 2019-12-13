@@ -1,0 +1,42 @@
+@startuml
+hide footbox
+
+actor actor
+
+actor -> BattleOfJava : shoot
+BattleOfJava -> BattleOfJava : shoot(currentPlayer, x, y)
+BattleOfJava -> Board : shoot(x, y)
+Board -> Board : t = getTile(x,y)
+Board -> Tile : isEmpty = t.isEmpty()
+
+alt isEmpty = true
+Board -> Tile : t.getTileX()
+return x1
+Board -> Tile : t.getTileY()
+return y1
+Board -> Board : s = getShip(x1, y1)
+
+group if s != null
+Board -> Ship : damage()
+Board -> Tile : t.setState(HIT)
+else
+Board -> Tile : t.setState(MISS)
+end
+Board --> BattleOfJava : ok
+else isEmpty = false
+Board --> BattleOfJava : ko
+BattleOfJava --> actor : "tile already shot, \nshoot on an other tile"
+end
+
+BattleOfJava -> Board : win = isAllSunk()
+loop 7 times
+Board -> Ship : isSunk()
+Ship --> Board : sunk
+end
+Board --> BattleOfJava : win
+
+group if win = true
+BattleOfJava -> Player : currentPlayer.win()
+end
+@enduml
+

@@ -1,0 +1,13 @@
+@startuml
+
+hide footbox
+
+Actor User
+
+User -> BattleOfJava: Load a game
+BattleOfJava -> BattleOfJava: load()
+BattleOfJava -> User: Which one ?
+User -> BattleOfJava: File: f
+BattleOfJava -> BattleOfJava: loadFile(f)
+
+@enduml

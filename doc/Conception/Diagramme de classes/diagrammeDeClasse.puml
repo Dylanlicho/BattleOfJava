@@ -1,0 +1,97 @@
+
+ @startuml
+
+skinparam classAttributeIconSize 0
+
+AI --> Player
+Human --> Player
+
+
+BattleOfJava --"2" Player
+BattleOfJava --"2" Board
+Board --"100" Tile
+ConcreteTile --> Tile
+
+Board --"7" Ship
+Ship1 --> Ship
+Ship2 --> Ship
+ShipN --> Ship
+
+class AgeFactory << (S,#FF7700) Singleton >> {
+	+ createNewShip(Player p, int age)
+}
+
+class ShipFactory20s << (S,#FF7700) Singleton >>
+class ShipFactory15s << (S,#FF7700) Singleton >>
+ShipFactory15s --> AgeFactory
+ShipFactory20s --> AgeFactory
+
+class BattleOfJava {
+	+ void load()
+	+ void loadFile(File file)
+	+ void save()
+	+ void shoot(Player currentPlayer, float x, float y)
+	+ void startNewGame(int playerAmount)
+	- createNewBoard(Player p)
+	+ setAge(Player p, int age)
+	+ setPosition(Player p, Ship s, int x, int y)
+}
+
+class Board {
+	- int player
+	+ boolean shoot(flaot x, float y)
+	+ boolean isAllSunk()
+	- Tile getTile(float x, float y)
+	- Ship getShip(int x, int y)
+	+ createTiles()
+	+ setAge(Player p, int age)
+	+ setShipPosition(Ship s, int x, int y)
+	+ addShip(Ship s, Player p)
+}
+
+abstract class Tile {
+	- int X
+	- int Y
+	- int state
+	+ int getTileX()
+	+ int getTileY()
+	+ void setState(int state)
+	+ {abstract}Tile clone()
+}
+
+class ConcreteTile {
+	+ Tile clone()
+}
+
+abstract class Ship {
+	- int hp
+	- int x
+	- int y
+	- int width
+	- int heigth
+	- int orientation
+	+ boolean isSunk()
+	+ void damage()
+	+ setShipPosition(int x, int y)
+}
+
+abstract class Player {
+	win()
+}
+
+class AI {
+	+ set fireTactics(FireTactics ft)
+}
+
+AI --"1" FireTactics
+interface FireTactics {
+
+}
+
+class Tactic1 implements FireTactics {
+}
+class Tactic2 implements FireTactics {
+}
+
+@enduml
+
