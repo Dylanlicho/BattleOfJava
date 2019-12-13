@@ -2,10 +2,7 @@ package sample.model.factory;
 
 
 import sample.model.ship.Ship;
-import sample.model.ship.century15s.Caravelle;
-import sample.model.ship.century15s.Drakkar;
-import sample.model.ship.century15s.Flette;
-import sample.model.ship.century15s.Sailboat;
+import sample.model.ship.century15s.*;
 
 import java.util.ArrayList;
 
@@ -31,7 +28,7 @@ public class AgeFactory {
         ArrayList<Ship> ships = new ArrayList<Ship>();
 
         Sailboat sailboat = new Sailboat(1,0,0,GameFactory.LEFT);
-        Caravelle caravelle1 = new Caravelle(1,0,sailboat.getY()+Century15SFactory.WIDTHSAILBOAT + 1,GameFactory.LEFT);
+        Caravelle caravelle1 = new Caravelle(1,0,sailboat.getY()+ Century15SFactory.WIDTHSAILBOAT + 1,GameFactory.LEFT);
         Caravelle caravelle2 = new Caravelle(1,0,caravelle1.getY()+Century15SFactory.WIDTHCARAVELLE + 1,GameFactory.LEFT);
         Flette flette1 = new Flette(1,0,caravelle2.getY()+Century15SFactory.WIDTHCARAVELLE + 1,GameFactory.LEFT);
         Flette flette2 = new Flette(1,0,flette1.getY()+Century15SFactory.WIDTHFLETTE + 1,GameFactory.LEFT);

@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import sample.model.BattleOfJava;
 import sample.model.board.Tile;
-import sample.model.factory.EnumState;
+import sample.model.board.EnumState;
 import sample.model.factory.GameFactory;
 
 
@@ -116,7 +116,7 @@ public class ViewBattle implements Observer {
         pane.setOnMouseClicked(e -> {
             boardJ2Click(colIndex, rowIndex);
         });
-        Tile tile = battleOfJava.getTileBoardJ1(colIndex, rowIndex);
+        Tile tile = battleOfJava.getTileBoardJ2(colIndex, rowIndex);
         if (tile != null) {
             if (tile.getState() == EnumState.HIT) {
                 Image image = new Image("images/hit.png");

@@ -1,4 +1,4 @@
-package sample.model.factory;
+package sample.model.ship.century15s;
 
 public class Century15SFactory {
 

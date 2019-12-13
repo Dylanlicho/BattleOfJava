@@ -14,9 +14,9 @@ public class BattleOfJava extends Observable {
 
 
     //The first player
-    private Player J1;
+    private Player j1;
     //The second player
-    private Player J2;
+    private Player j2;
     //The board of the player 1
     private Board boardJ1;
     //The board of the player 2
@@ -59,7 +59,20 @@ public class BattleOfJava extends Observable {
      * @param x the position of the shoot in abscissa
      * @param y the position of the shoot in ordinate
      */
-    public void shoot(Player currentPlayer, float x, float y) {}
+    public void shoot(Player currentPlayer, int x, int y) {
+        if(currentPlayer == j1){
+            boardJ2.shoot(x, y);
+            if(boardJ2.isAllSunk()){
+                currentPlayer.win();
+            }
+        }
+        else {  // currentPlayer == j2
+            boardJ1.shoot(x, y);
+            if(boardJ1.isAllSunk()){
+                currentPlayer.win();
+            }
+        }
+    }
 
     /**
      * load a game

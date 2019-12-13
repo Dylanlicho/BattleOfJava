@@ -1,7 +1,5 @@
 package sample.model.board;
 
-import sample.model.factory.EnumState;
-
 public abstract class Tile implements Cloneable {
 
     //The position in X of the Tile

@@ -1,4 +1,4 @@
-package sample.model.factory;
+package sample.model.board;
 
 public enum EnumState {
 

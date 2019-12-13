@@ -1,9 +1,7 @@
 package sample.model.board;
 
-
-
-
 import sample.model.factory.GameFactory;
+import sample.model.ship.Ship;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +10,15 @@ public class Board {
 
     //The list of the Tile which composed the board
     private List<Tile> tiles;
+    private List<Ship> ships;
 
     /**
-     * The constroctor of the Board
+     * Constructor of the Board
      * @param initY the initial Y
      */
     public Board(int initY) {
-
-        this.tiles = new ArrayList<Tile>();
+        this.tiles = new ArrayList<>();
         Tile t = new ConcreteTile(0, 0);
-//        Tile t = new ConcreteTile(world,0, 0);
         this.tiles.add(t);
         for (int i = 0 ; i < GameFactory.NBTILE - 1 ; i++) {
             this.tiles.add(t.clone());
@@ -36,6 +33,46 @@ public class Board {
                 y += GameFactory.TILEWIDTH;
             }
         }
+
+        this.ships = new ArrayList<>(7);
+
+    }
+
+    /**
+     * A player shoots a tile of the board
+     * @param x x-axes
+     * @param y y-axes
+     */
+    public void shoot(int x, int y) {
+        Tile t = getTile(x, y);
+        if(t.isEmpty()){    //the player never shot this tile
+            Ship s = getShip(x, y);
+            if(s != null){  // the player hits a ship
+                s.damage();
+                t.setState(EnumState.HIT);
+            }
+            else{           // the player hits nothing...
+                t.setState(EnumState.MISS);
+            }
+        }
+        else{
+            System.out.println("Vous avez déjà tiré ici, voici une nouvelle chance !");
+        }
+
+    }
+
+    /**
+     *Verify if all the fleet is sunk
+     * @return true if all ships are sunk
+     */
+    public boolean isAllSunk() {
+        boolean isAllSunk = true;
+        for(Ship s : ships){
+            if(!s.isSunk()){
+                isAllSunk = false;
+            }
+        }
+        return isAllSunk;
     }
 
     /**
@@ -57,6 +94,10 @@ public class Board {
         }
         if (find) return tile;
         else return null;
+    }
+
+    public Ship getShip(int x, int y) {
+        return null;
     }
 
 }
