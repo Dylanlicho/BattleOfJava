@@ -1,6 +1,6 @@
 package sample.model.board;
 
-import sample.model.factory.AgeFactory;
+import sample.model.ship.AgeFactory;
 import sample.model.factory.GameFactory;
 import sample.model.ship.Ship;
 
@@ -125,4 +125,7 @@ public class Board {
         else return null;
     }
 
+    public List<Ship> getShips() {
+        return shipsPlayer;
+    }
 }

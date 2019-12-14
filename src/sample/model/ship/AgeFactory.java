@@ -1,6 +1,7 @@
-package sample.model.factory;
+package sample.model.ship;
 
 
+import sample.model.factory.GameFactory;
 import sample.model.ship.Ship;
 import sample.model.ship.century15s.Caravelle;
 import sample.model.ship.century15s.Drakkar;
@@ -32,9 +33,15 @@ public class AgeFactory {
      * @return A list of 7 ships of century 15
      */
     private static ArrayList<Ship> create15SShip(){
-        System.out.println("Creation des bateaux du 15è siècle");
         ArrayList<Ship> ships = new ArrayList<Ship>();
 
+        Sailboat sailboat = new Sailboat(1,0,0,GameFactory.BOTTOM);
+        Caravelle caravelle1 = new Caravelle(1,2,0,GameFactory.LEFT);
+        Caravelle caravelle2 = new Caravelle(1,3,6,GameFactory.TOP);
+        Flette flette1 = new Flette(1,4,2,GameFactory.LEFT);
+        Flette flette2 = new Flette(1,5,8,GameFactory.RIGHT);
+        Flette flette3 = new Flette(1,6,5,GameFactory.LEFT);
+        Drakkar drakkar = new Drakkar(1,2,9,GameFactory.TOP);
 //        Sailboat sailboat = new Sailboat(1,0,0,GameFactory.LEFT);
 //        Caravelle caravelle1 = new Caravelle(1,0,sailboat.getY()+ Century15SFactory.WIDTHSAILBOAT + 1,GameFactory.LEFT);
 //        Caravelle caravelle2 = new Caravelle(1,0,caravelle1.getY()+Century15SFactory.WIDTHCARAVELLE + 1,GameFactory.LEFT);
@@ -42,14 +49,14 @@ public class AgeFactory {
 //        Flette flette2 = new Flette(1,0,flette1.getY()+Century15SFactory.WIDTHFLETTE + 1,GameFactory.LEFT);
 //        Flette flette3 = new Flette(1,0,flette2.getY()+Century15SFactory.WIDTHFLETTE + 1,GameFactory.LEFT);
 //        Drakkar drakkar = new Drakkar(1,0,flette3.getY()+Century15SFactory.WIDTHFLETTE + 1,GameFactory.LEFT);
-
+/*
         Sailboat sailboat = new Sailboat(1,1,8,GameFactory.LEFT);
         Caravelle caravelle1 = new Caravelle(1,0,4,GameFactory.LEFT);
         Caravelle caravelle2 = new Caravelle(1,2,4,GameFactory.LEFT);
         Flette flette1 = new Flette(1,4,0,GameFactory.LEFT);
         Flette flette2 = new Flette(1,4,2,GameFactory.LEFT);
         Flette flette3 = new Flette(1,4,4,GameFactory.LEFT);
-        Drakkar drakkar = new Drakkar(1,4,6,GameFactory.LEFT);
+        Drakkar drakkar = new Drakkar(1,4,6,GameFactory.LEFT);*/
 
         ships.add(sailboat);
         ships.add(caravelle1);
@@ -66,7 +73,6 @@ public class AgeFactory {
      * @return A list of 7 ships of century 20
      */
     private static ArrayList<Ship> create20SShip(){
-        System.out.println("Creation des bateaux du 20è siècle");
         ArrayList<Ship> ships = new ArrayList<Ship>();
 
         Corvette corvette = new Corvette(1,1,8,GameFactory.LEFT);

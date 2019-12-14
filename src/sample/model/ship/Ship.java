@@ -66,7 +66,15 @@ public abstract class Ship {
         return width;
     }
 
+    public String getType(){
+        return type;
+    }
+
     public int getHeigth() {
         return heigth;
+    }
+
+    public int getOrientation() {
+        return orientation;
     }
 }

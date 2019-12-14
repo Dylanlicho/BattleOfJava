@@ -3,6 +3,7 @@ package sample.model;
 
 import sample.model.board.Board;
 import sample.model.board.Tile;
+import sample.model.factory.GameFactory;
 import sample.model.player.AI;
 import sample.model.player.Human;
 import sample.model.player.Player;
@@ -37,7 +38,19 @@ public class BattleOfJava extends Observable {
     public BattleOfJava() {
         j1 = new Human(1);
         j2 = new AI(2);
-        currentPlayer = j1;
+        startNewGame(1,GameFactory.TACTICRANDOM);
+        ////////////////// Pour les tests ///////////////////
+         currentPlayer = j1; ////////////////////////////////
+        //////Avouez c'est beau et vous êtes jaloux/////////
+        setAge(GameFactory.CENTURY15S);
+    }
+
+    public Board getBoard(Player player) {
+        if(player.getNum() == 1) {
+            return boardJ1;
+        }else{
+            return boardJ2;
+        }
     }
 
 
@@ -64,6 +77,12 @@ public class BattleOfJava extends Observable {
         this.age = age;
         boardJ1.setAge(age);
         boardJ2.setAge(age);
+        boardJ1.setAge(age);
+        boardJ2.setAge(age);
+    }
+
+    public Player getCurrentPlayer(){
+        return currentPlayer;
     }
 
     /**
@@ -130,10 +149,6 @@ public class BattleOfJava extends Observable {
 
     public void setStart(boolean start) {
         this.start = start;
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
     }
 
     public void setCurrentPlayer(Player currentPlayer) {

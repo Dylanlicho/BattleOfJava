@@ -4,12 +4,19 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import sample.model.BattleOfJava;
+import sample.model.board.Board;
+import sample.model.board.Tile;
 import sample.model.board.EnumState;
 import sample.model.board.Tile;
 import sample.model.factory.GameFactory;
+import sample.model.ship.Ship;
 
 
+import javafx.scene.control.Label;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -28,6 +35,10 @@ public class ViewBoards implements Observer {
     //The board of the player 2
     @FXML
     private GridPane boardJ2;
+
+    // The pane to place ship
+    @FXML
+    private Pane paneShip;
 
     /**
      * The constructor of the view
@@ -58,6 +69,114 @@ public class ViewBoards implements Observer {
                 addPaneJ1(i, j);
                 addPaneJ2(i, j);
             }
+        }
+
+        initialiseShip();
+
+    }
+
+    public void initialiseShip(){
+        Board board = battleOfJava.getBoard(battleOfJava.getCurrentPlayer());
+        ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
+        for(Ship s: ships) {
+            Image image = new Image("images/"+s.getType()+".png");
+            ImageView imageView = new ImageView(image);
+            imageView.setX(GameFactory.TILEWIDTH * s.getX());
+            imageView.setY(GameFactory.TILEWIDTH * s.getY());
+
+            if (s.getOrientation() == GameFactory.TOP || s.getOrientation() == GameFactory.BOTTOM) {
+                if (s.getOrientation() == GameFactory.BOTTOM) {
+                    imageView.setFitHeight(s.getHeigth()* GameFactory.TILEWIDTH);
+                }
+                if (s.getOrientation() == GameFactory.TOP) {
+                    imageView.setFitHeight(-s.getHeigth()* GameFactory.TILEWIDTH);
+                }
+                imageView.setFitWidth(s.getWidth()* GameFactory.TILEWIDTH);
+            }
+            if (s.getOrientation() == GameFactory.LEFT || s.getOrientation() == GameFactory.RIGHT) {
+
+                if (s.getOrientation() == GameFactory.LEFT) {
+                    imageView.setFitWidth(-s.getWidth()* GameFactory.TILEWIDTH);
+                }
+                if (s.getOrientation() == GameFactory.RIGHT) {
+                    imageView.setFitWidth(s.getWidth()* GameFactory.TILEWIDTH);
+                }
+                imageView.setFitHeight(s.getHeigth()* GameFactory.TILEWIDTH);
+            }
+
+            this.paneShip.getChildren().add(imageView);
+
+
+
+            /*Label label = new Label();
+            label.setTranslateX(GameFactory.TILEWIDTH * s.getX() );
+            label.setTranslateY(GameFactory.TILEWIDTH * s.getY() );
+            //System.out.println(label.getLayoutX() + " bala "+ label.getLayoutY());
+            if (s.getOrientation() == GameFactory.TOP || s.getOrientation() == GameFactory.BOTTOM) {
+                label.setRotate(90);
+                if (s.getOrientation() == GameFactory.BOTTOM) {
+                    label.setPrefWidth(s.getWidth()* GameFactory.TILEWIDTH);
+                }
+                if (s.getOrientation() == GameFactory.TOP) {
+                    label.setPrefWidth(-s.getWidth()* GameFactory.TILEWIDTH);
+                }
+            }
+            if (s.getOrientation() == GameFactory.LEFT || s.getOrientation() == GameFactory.RIGHT) {
+
+                if (s.getOrientation() == GameFactory.LEFT) {
+                    label.setPrefWidth(-s.getWidth()* GameFactory.TILEWIDTH);
+                }
+                if (s.getOrientation() == GameFactory.RIGHT) {
+                    label.setPrefWidth(s.getWidth()* GameFactory.TILEWIDTH);
+                }
+            }
+            label.setFont(new Font(GameFactory.TILEWIDTH));
+
+            label.setMaxWidth(Double.MAX_VALUE);
+            label.setMaxHeight(Double.MAX_VALUE);
+            label.setStyle("-fx-border-color: red;");
+
+            this.paneShip.getChildren().add(label);*/
+
+
+
+
+
+
+
+
+            /*if(s.getOrientation() == GameFactory.TOP || s.getOrientation() == GameFactory.BOTTOM) {
+                label.setStyle("vertical");
+                if(s.getOrientation() == GameFactory.BOTTOM) {
+                    label.setPrefHeight(s.getHeigth());
+                    label.setMaxHeight(s.getHeigth());
+                }
+                if(s.getOrientation() == GameFactory.TOP) {
+                    label.setPrefHeight(-s.getHeigth());
+                    label.setMaxHeight(s.getHeigth());
+                }
+            }
+            if(s.getOrientation() == GameFactory.LEFT || s.getOrientation() == GameFactory.RIGHT) {
+                label.setStyle("horizontal");
+                if(s.getOrientation() == GameFactory.RIGHT) {
+                    label.setPrefWidth(s.getWidth());
+                    label.setMaxWidth(s.getWidth());
+                }
+                if(s.getOrientation() == GameFactory.LEFT) {
+                    label.setPrefWidth(-s.getWidth());
+                    label.setMaxWidth(s.getWidth());
+                }
+            }*/
+
+        }
+    }
+
+
+    public GridPane getBoardCurrentPlayer() {
+        if(battleOfJava.getCurrentPlayer().getNum() == 1) {
+            return boardJ1;
+        }else{
+            return boardJ2;
         }
     }
 
