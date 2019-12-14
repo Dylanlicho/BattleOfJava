@@ -2,31 +2,42 @@ package sample.model.player;
 
 
 import sample.model.BattleOfJava;
+import sample.model.factory.GameFactory;
 import sample.model.fireTactics.FireTactics;
+import sample.model.fireTactics.TacticCross;
+import sample.model.fireTactics.TacticRandom;
 
 /**
  * The class of the AI player
  */
 public class AI extends Player {
 
+
+
     //The fire tactic of the AI
     private FireTactics tactic;
 
     public AI(int num) {
         super(num);
+        type = GameFactory.AITYPE;
     }
 
-    @Override
-    public void shoot(BattleOfJava battle, int x, int y) {
-        System.out.println("shoot of AI");
-        try {
-            wait(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public void setTactic(int tactic) {
+        switch (tactic) {
+            case GameFactory.TACTICRANDOM:
+                setFireTactic(new TacticRandom());
+                break;
+            case GameFactory.TACTICCROSS:
+                setFireTactic(new TacticCross());
+                break;
+            default:
+                break;
         }
-        System.out.println("AI have shoot");
     }
 
+    public void shoot(BattleOfJava battle) {
+        tactic.shoot(battle, this);
+    }
 
     /**
      * set the fire tactic of the AI

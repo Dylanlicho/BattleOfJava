@@ -9,21 +9,38 @@ import sample.model.BattleOfJava;
 public abstract class Player  {
 
     int num;
+    protected String type;
+    protected boolean win;
 
     public Player(int num){
         this.num = num;
+        setWin(false);
     }
 
     /**
      * The player win the game
      */
     public void win() {
-
+        setWin(true);
     }
 
-    public abstract void shoot(BattleOfJava battle, int x, int y);
+    public void shoot(BattleOfJava battle, int x, int y){
+        battle.shoot(this, x, y);
+    }
 
     public int getNum() {
         return num;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public boolean asWin() {
+        return win;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
     }
 }

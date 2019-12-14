@@ -47,7 +47,7 @@ public class Board {
      * @param x x-axes
      * @param y y-axes
      */
-    public void shoot(int x, int y) {
+    public int shoot(int x, int y) {
         Tile t = getTile(x, y);
         if(t.isEmpty()){    //the player never shot this tile
             Ship s = getShip(x, y);
@@ -58,9 +58,10 @@ public class Board {
             else{           // the player hits nothing...
                 t.setState(EnumState.MISS);
             }
+            return t.getState().ordinal();
         }
         else{
-            System.out.println("Vous avez déjà tiré ici, voici une nouvelle chance !");
+            return -1;
         }
 
     }

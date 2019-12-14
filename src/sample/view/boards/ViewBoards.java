@@ -1,21 +1,18 @@
 package sample.view.boards;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import sample.model.BattleOfJava;
 import sample.model.board.Board;
 import sample.model.board.Tile;
 import sample.model.board.EnumState;
-import sample.model.board.Tile;
 import sample.model.factory.GameFactory;
+import sample.model.player.*;
 import sample.model.ship.Ship;
 
-
-import javafx.scene.control.Label;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -30,15 +27,24 @@ public class ViewBoards implements Observer {
 
     //The board of the player 1
     @FXML
+    private GridPane grid1;
+    @FXML
     private GridPane boardJ1;
 
     //The board of the player 2
     @FXML
+    private GridPane grid2;
+    @FXML
     private GridPane boardJ2;
+
+    @FXML
+    private Label text;
 
     // The pane to place ship
     @FXML
-    private Pane paneShip;
+    private Pane paneShipJ1;
+    @FXML
+    private Pane paneShipJ2;
 
     /**
      * The constructor of the view
@@ -55,8 +61,10 @@ public class ViewBoards implements Observer {
     public void initialize() {
         initialiseBoard(getBoardJ1());
         initialiseBoard(getBoardJ2());
-
+        initialiseBoard(grid1);
+        initialiseBoard(grid2);
         addPanes();
+        initialiseShip();
     }
 
     /**
@@ -70,13 +78,45 @@ public class ViewBoards implements Observer {
                 addPaneJ2(i, j);
             }
         }
-
-        initialiseShip();
-
     }
 
     public void initialiseShip(){
-        Board board = battleOfJava.getBoard(battleOfJava.getCurrentPlayer());
+        initializeShipJ1();
+        initializeShipJ2();
+//        Board board = battleOfJava.getBoard(battleOfJava.getCurrentPlayer());
+//        ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
+//        for(Ship s: ships) {
+//            Image image = new Image("images/"+s.getType()+".png");
+//            ImageView imageView = new ImageView(image);
+//            imageView.setX(GameFactory.TILEWIDTH * s.getX());
+//            imageView.setY(GameFactory.TILEWIDTH * s.getY());
+//
+//            if (s.getOrientation() == GameFactory.TOP || s.getOrientation() == GameFactory.BOTTOM) {
+//                if (s.getOrientation() == GameFactory.BOTTOM) {
+//                    imageView.setFitHeight(s.getHeigth()* GameFactory.TILEWIDTH);
+//                }
+//                if (s.getOrientation() == GameFactory.TOP) {
+//                    imageView.setFitHeight(-s.getHeigth()* GameFactory.TILEWIDTH);
+//                }
+//                imageView.setFitWidth(s.getWidth()* GameFactory.TILEWIDTH);
+//            }
+//            if (s.getOrientation() == GameFactory.LEFT || s.getOrientation() == GameFactory.RIGHT) {
+//
+//                if (s.getOrientation() == GameFactory.LEFT) {
+//                    imageView.setFitWidth(-s.getWidth()* GameFactory.TILEWIDTH);
+//                }
+//                if (s.getOrientation() == GameFactory.RIGHT) {
+//                    imageView.setFitWidth(s.getWidth()* GameFactory.TILEWIDTH);
+//                }
+//                imageView.setFitHeight(s.getHeigth()* GameFactory.TILEWIDTH);
+//            }
+//
+//            this.paneShipJ1.getChildren().add(imageView);
+//        }
+    }
+
+    private void initializeShipJ1() {
+        Board board = battleOfJava.getBoard(battleOfJava.getJ1());
         ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
         for(Ship s: ships) {
             Image image = new Image("images/"+s.getType()+".png");
@@ -84,101 +124,31 @@ public class ViewBoards implements Observer {
             imageView.setX(GameFactory.TILEWIDTH * s.getX());
             imageView.setY(GameFactory.TILEWIDTH * s.getY());
 
-            if (s.getOrientation() == GameFactory.TOP || s.getOrientation() == GameFactory.BOTTOM) {
-                if (s.getOrientation() == GameFactory.BOTTOM) {
-                    imageView.setFitHeight(s.getHeigth()* GameFactory.TILEWIDTH);
-                }
-                if (s.getOrientation() == GameFactory.TOP) {
-                    imageView.setFitHeight(-s.getHeigth()* GameFactory.TILEWIDTH);
-                }
-                imageView.setFitWidth(s.getWidth()* GameFactory.TILEWIDTH);
-            }
-            if (s.getOrientation() == GameFactory.LEFT || s.getOrientation() == GameFactory.RIGHT) {
+            imageView.setFitHeight(s.getHeigth()* GameFactory.TILEWIDTH);
+            imageView.setFitWidth(s.getWidth()* GameFactory.TILEWIDTH);
 
-                if (s.getOrientation() == GameFactory.LEFT) {
-                    imageView.setFitWidth(-s.getWidth()* GameFactory.TILEWIDTH);
-                }
-                if (s.getOrientation() == GameFactory.RIGHT) {
-                    imageView.setFitWidth(s.getWidth()* GameFactory.TILEWIDTH);
-                }
-                imageView.setFitHeight(s.getHeigth()* GameFactory.TILEWIDTH);
-            }
-
-            this.paneShip.getChildren().add(imageView);
-
-
-
-            /*Label label = new Label();
-            label.setTranslateX(GameFactory.TILEWIDTH * s.getX() );
-            label.setTranslateY(GameFactory.TILEWIDTH * s.getY() );
-            //System.out.println(label.getLayoutX() + " bala "+ label.getLayoutY());
-            if (s.getOrientation() == GameFactory.TOP || s.getOrientation() == GameFactory.BOTTOM) {
-                label.setRotate(90);
-                if (s.getOrientation() == GameFactory.BOTTOM) {
-                    label.setPrefWidth(s.getWidth()* GameFactory.TILEWIDTH);
-                }
-                if (s.getOrientation() == GameFactory.TOP) {
-                    label.setPrefWidth(-s.getWidth()* GameFactory.TILEWIDTH);
-                }
-            }
-            if (s.getOrientation() == GameFactory.LEFT || s.getOrientation() == GameFactory.RIGHT) {
-
-                if (s.getOrientation() == GameFactory.LEFT) {
-                    label.setPrefWidth(-s.getWidth()* GameFactory.TILEWIDTH);
-                }
-                if (s.getOrientation() == GameFactory.RIGHT) {
-                    label.setPrefWidth(s.getWidth()* GameFactory.TILEWIDTH);
-                }
-            }
-            label.setFont(new Font(GameFactory.TILEWIDTH));
-
-            label.setMaxWidth(Double.MAX_VALUE);
-            label.setMaxHeight(Double.MAX_VALUE);
-            label.setStyle("-fx-border-color: red;");
-
-            this.paneShip.getChildren().add(label);*/
-
-
-
-
-
-
-
-
-            /*if(s.getOrientation() == GameFactory.TOP || s.getOrientation() == GameFactory.BOTTOM) {
-                label.setStyle("vertical");
-                if(s.getOrientation() == GameFactory.BOTTOM) {
-                    label.setPrefHeight(s.getHeigth());
-                    label.setMaxHeight(s.getHeigth());
-                }
-                if(s.getOrientation() == GameFactory.TOP) {
-                    label.setPrefHeight(-s.getHeigth());
-                    label.setMaxHeight(s.getHeigth());
-                }
-            }
-            if(s.getOrientation() == GameFactory.LEFT || s.getOrientation() == GameFactory.RIGHT) {
-                label.setStyle("horizontal");
-                if(s.getOrientation() == GameFactory.RIGHT) {
-                    label.setPrefWidth(s.getWidth());
-                    label.setMaxWidth(s.getWidth());
-                }
-                if(s.getOrientation() == GameFactory.LEFT) {
-                    label.setPrefWidth(-s.getWidth());
-                    label.setMaxWidth(s.getWidth());
-                }
-            }*/
-
+            this.paneShipJ1.getChildren().add(imageView);
         }
     }
 
+    private void initializeShipJ2() {
+        Board board = battleOfJava.getBoard(battleOfJava.getJ2());
+        ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
+        for(Ship s: ships) {
+            if (s.isSunk()) {
+                Image image = new Image("images/" + s.getType() + ".png");
+                ImageView imageView = new ImageView(image);
+                imageView.setX(GameFactory.TILEWIDTH * s.getX());
+                imageView.setY(GameFactory.TILEWIDTH * s.getY());
 
-    public GridPane getBoardCurrentPlayer() {
-        if(battleOfJava.getCurrentPlayer().getNum() == 1) {
-            return boardJ1;
-        }else{
-            return boardJ2;
+                imageView.setFitHeight(s.getHeigth() * GameFactory.TILEWIDTH);
+                imageView.setFitWidth(s.getWidth() * GameFactory.TILEWIDTH);
+
+                this.paneShipJ2.getChildren().add(imageView);
+            }
         }
     }
+
 
     /**
      * Initialisation of a board
@@ -227,9 +197,7 @@ public class ViewBoards implements Observer {
      */
     private void addPaneJ2(int colIndex, int rowIndex) {
         Pane pane = new Pane();
-        pane.setOnMouseClicked(e -> {
-            boardJ2Click(colIndex, rowIndex);
-        });
+        pane.setOnMouseClicked(e -> boardJ2Click(colIndex, rowIndex));
         if (getBattleOfJava().isStart()) {
             Tile tile = getBattleOfJava().getTileBoardJ2(colIndex, rowIndex);
             printTile(pane, colIndex, rowIndex, getBoardJ2(), tile);
@@ -264,8 +232,10 @@ public class ViewBoards implements Observer {
      * @param row the row of the cell
      */
     private void boardJ2Click(int col, int row) {
-        if(getBattleOfJava().getTileBoardJ2(col, row).getState() == EnumState.EMPTY) {
-            getBattleOfJava().getCurrentPlayer().shoot(battleOfJava, col, row);
+        if (!getBattleOfJava().getCurrentPlayer().asWin()) {
+            if (getBattleOfJava().getTileBoardJ2(col, row).getState() == EnumState.EMPTY) {
+                getBattleOfJava().getCurrentPlayer().shoot(battleOfJava, col, row);
+            }
         }
     }
 
@@ -304,21 +274,49 @@ public class ViewBoards implements Observer {
      * update the boards
      */
     private void updateGrid() {
-        getBoardJ1().setGridLinesVisible(false);
-        getBoardJ2().setGridLinesVisible(false);
         getBoardJ1().getChildren().clear();
         getBoardJ2().getChildren().clear();
 
         addPanes();
     }
 
+    private void updateShip() {
+        paneShipJ1.getChildren().clear();
+        paneShipJ2.getChildren().clear();
+        initialiseShip();
+    }
 
+    private void updateText() {
+        Player current = getBattleOfJava().getCurrentPlayer();
+
+        if (getBattleOfJava().getCurrentPlayer().getNum() == 1) {
+            if (current.asWin())
+                text.setText("you win !");
+            else
+                text.setText("it's your turn");
+        }
+        if (getBattleOfJava().getCurrentPlayer().getNum() == 2) {
+            if (current.asWin())
+                text.setText("J2 win !");
+            else
+                text.setText("it's J2's turn");
+        }
+    }
+
+    private void checkAIShoot() {
+        if (!getBattleOfJava().getCurrentPlayer().asWin()) {
+            Player currentPlayer = getBattleOfJava().getCurrentPlayer();
+            if (currentPlayer.getType().equals(GameFactory.AITYPE))
+                ((AI) currentPlayer).shoot(getBattleOfJava());
+        }
+    }
 
     @Override
     public void update(Observable o, Object arg) {
         setBattleOfJava((BattleOfJava)o);
         updateGrid();
-        getBoardJ1().setGridLinesVisible(true);
-        getBoardJ2().setGridLinesVisible(true);
+        updateShip();
+        updateText();
+        checkAIShoot();
     }
 }

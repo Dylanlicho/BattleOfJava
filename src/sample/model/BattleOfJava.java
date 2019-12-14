@@ -2,6 +2,7 @@ package sample.model;
 
 
 import sample.model.board.Board;
+import sample.model.board.EnumState;
 import sample.model.board.Tile;
 import sample.model.factory.GameFactory;
 import sample.model.player.AI;
@@ -63,10 +64,16 @@ public class BattleOfJava extends Observable {
         boardJ1 = new Board();
         boardJ2 = new Board();
         setAge(century);
+        setTactic(IAtactic);
         setStart(true);
 
         setChanged();
         notifyObservers();
+    }
+
+    public void setTactic(int IAtactic) {
+        if (j1.getType().equals(GameFactory.AITYPE)) ((AI)j1).setTactic(IAtactic);
+        if (j2.getType().equals(GameFactory.AITYPE)) ((AI)j2).setTactic(IAtactic);
     }
 
     /**
@@ -102,18 +109,23 @@ public class BattleOfJava extends Observable {
     public void shoot(Player p, int x, int y) {
         if (currentPlayer == p) {
             if (p == j1) {
-                boardJ2.shoot(x, y);
+                int res = boardJ2.shoot(x, y);
                 if (boardJ2.isAllSunk()) {
                     currentPlayer.win();
                 }
+                if (res >= 0 && res != EnumState.HIT.ordinal())  {
+                    setCurrentPlayer(j2);
+                }
             } else {  // currentPlayer == j2
-                boardJ1.shoot(x, y);
+                int res = boardJ1.shoot(x, y);
                 if (boardJ1.isAllSunk()) {
                     currentPlayer.win();
                 }
+                if (res >= 0 && res != EnumState.HIT.ordinal())  {
+                    setCurrentPlayer(j1);
+                }
             }
         }
-
         setChanged();
         notifyObservers();
     }
@@ -153,5 +165,13 @@ public class BattleOfJava extends Observable {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public Player getJ1() {
+        return j1;
+    }
+
+    public Player getJ2() {
+        return j2;
     }
 }

@@ -29,4 +29,7 @@ public class GameFactory {
 
     public static final int NBSHIP = 7;
 
+    public static final String HUMANTYPE = "human";
+    public static final String AITYPE = "ai";
+
 }

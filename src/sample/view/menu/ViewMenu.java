@@ -3,6 +3,7 @@ package sample.view.menu;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import sample.model.BattleOfJava;
+import sample.model.factory.GameFactory;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -140,7 +141,7 @@ public class ViewMenu implements Observer {
      * change the tatcic of fire to random tactic
      */
     public void tacticRandom()  {
-        System.out.println("change tactic random");
+        getBattleOfJava().setTactic(GameFactory.TACTICRANDOM);
     }
 
 
@@ -148,7 +149,7 @@ public class ViewMenu implements Observer {
      * change the tatcic of fire to cross tactic
      */
     public void tacticCross () {
-        System.out.println("change tactic cross");
+        getBattleOfJava().setTactic(GameFactory.TACTICCROSS);
     }
 
 
