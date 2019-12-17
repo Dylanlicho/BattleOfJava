@@ -1,10 +1,12 @@
 package sample.view.menu;
 
 import javafx.application.Platform;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.model.BattleOfJava;
 import sample.model.factory.GameFactory;
 
+import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -103,7 +105,20 @@ public class ViewMenu implements Observer {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        System.out.println("save");
+
+        ObjectOutputStream flot;// On ouvre un filtre
+        FileChooser fileChooser = new FileChooser();// Nous permet de choisir un fichier
+        fileChooser.setTitle("Save");
+        File file = fileChooser.showSaveDialog(stage);// On prend le fichier choisit
+        if (file != null) {
+            try {
+                flot = new ObjectOutputStream(new FileOutputStream(file));
+                flot.writeObject(getBattleOfJava());// On écrit tous ce qui est dans la classe principale dans le fichier
+                System.out.println("save");
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 
 
@@ -124,7 +139,22 @@ public class ViewMenu implements Observer {
 //            e.printStackTrace();
 //        }
 
-        System.out.println("load a game");
+        FileChooser fileChooser = new FileChooser();// Pour choisir le fichier à ouvrir
+        fileChooser.setTitle("Ouvrir");
+        File file = fileChooser.showOpenDialog(stage);// On prend le fichier à ouvrir
+        ObjectInputStream flot;// Filtre
+        if(file != null){
+            try {
+                flot = new ObjectInputStream(new FileInputStream(file));
+                BattleOfJava b = (BattleOfJava) (flot.readObject());// On lit le contenu du flot
+                battleOfJava.setBattleOfJava(b);// On construit la classe principale
+                System.out.println("load a game");
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

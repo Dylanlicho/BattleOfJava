@@ -5,12 +5,13 @@ import sample.model.BattleOfJava;
 import sample.model.factory.GameFactory;
 import sample.model.player.Player;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * The class of the fire tactic cross
  */
-public class TacticCross implements FireTactics {
+public class TacticCross implements FireTactics, Serializable {
 
     private boolean[][] tilesShot;
     private Random random;

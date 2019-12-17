@@ -5,12 +5,13 @@ import sample.model.BattleOfJava;
 import sample.model.factory.GameFactory;
 import sample.model.player.Player;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * The class of the fire tactic random
  */
-public class TacticRandom implements FireTactics {
+public class TacticRandom implements FireTactics, Serializable {
 
     private boolean[][] tilesShot;
     private Random random;
@@ -34,7 +35,7 @@ public class TacticRandom implements FireTactics {
             x = random.nextInt(GameFactory.BOARDSIZE);
             y = random.nextInt(GameFactory.BOARDSIZE);
         } while (tilesShot[x][y]);
-        System.out.println("AI shoot on "+x+";"+y+" with random tactic");
+        //System.out.println("AI shoot on "+x+";"+y+" with random tactic");
         tilesShot[x][y] = true;
         p.shoot(battle,x,y);
     }

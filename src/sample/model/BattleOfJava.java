@@ -11,9 +11,10 @@ import sample.model.player.Player;
 import sample.model.ship.Ship;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Observable;
 
-public class BattleOfJava extends Observable {
+public class BattleOfJava extends Observable implements Serializable {
 
 
     //The first player
@@ -173,5 +174,27 @@ public class BattleOfJava extends Observable {
 
     public Player getJ2() {
         return j2;
+    }
+
+    public void setBattleOfJava(BattleOfJava battleOfJava) {
+
+        System.out.println("---------------------------------------------------");
+        System.out.println(battleOfJava.getBoard(j2).toString());
+        System.out.println("_____________________________________________________");
+        System.out.println(this.getBoard(j2).toString());
+
+        System.out.println("---------------------------------------------------");
+        j1 = battleOfJava.getJ1();
+        j2 = battleOfJava.getJ2();
+        currentPlayer = battleOfJava.getCurrentPlayer();
+        boardJ1 = battleOfJava.getBoard(j1);
+        boardJ2 = battleOfJava.getBoard(j2);
+        start = battleOfJava.getStart();
+        setChanged();
+        notifyObservers();
+    }
+
+    private boolean getStart() {
+        return start;
     }
 }

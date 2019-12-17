@@ -4,10 +4,11 @@ import sample.model.ship.AgeFactory;
 import sample.model.factory.GameFactory;
 import sample.model.ship.Ship;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board {
+public class Board implements Serializable {
 
     //The list of the Tile which composed the board
     private List<Tile> tiles;

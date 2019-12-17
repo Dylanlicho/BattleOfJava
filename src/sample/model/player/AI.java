@@ -7,10 +7,12 @@ import sample.model.fireTactics.FireTactics;
 import sample.model.fireTactics.TacticCross;
 import sample.model.fireTactics.TacticRandom;
 
+import java.io.Serializable;
+
 /**
  * The class of the AI player
  */
-public class AI extends Player {
+public class AI extends Player implements Serializable {
 
 
 
