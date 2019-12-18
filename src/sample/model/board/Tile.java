@@ -1,5 +1,7 @@
 package sample.model.board;
 
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import java.io.Serializable;
 
 public abstract class Tile implements Cloneable, Serializable {
@@ -54,6 +56,11 @@ public abstract class Tile implements Cloneable, Serializable {
      */
     public boolean isEmpty(){
         return this.state == EnumState.EMPTY;
+    }
+
+    public boolean hasHitShip() {
+        System.out.println(this.state);
+        return this.state == EnumState.MISS;
     }
 
     /**

@@ -107,10 +107,11 @@ public class BattleOfJava extends Observable implements Serializable {
      * @param x the position of the shoot in abscissa
      * @param y the position of the shoot in ordinate
      */
-    public void shoot(Player p, int x, int y) {
+    public int shoot(Player p, int x, int y) {
+        int res = -1;
         if (currentPlayer == p) {
             if (p == j1) {
-                int res = boardJ2.shoot(x, y);
+                res = boardJ2.shoot(x, y);
                 if (boardJ2.isAllSunk()) {
                     currentPlayer.win();
                 }
@@ -118,7 +119,7 @@ public class BattleOfJava extends Observable implements Serializable {
                     setCurrentPlayer(j2);
                 }
             } else {  // currentPlayer == j2
-                int res = boardJ1.shoot(x, y);
+                res = boardJ1.shoot(x, y);
                 if (boardJ1.isAllSunk()) {
                     currentPlayer.win();
                 }
@@ -129,6 +130,7 @@ public class BattleOfJava extends Observable implements Serializable {
         }
         setChanged();
         notifyObservers();
+        return res;
     }
 
     /**

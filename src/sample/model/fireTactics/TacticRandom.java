@@ -2,6 +2,7 @@ package sample.model.fireTactics;
 
 
 import sample.model.BattleOfJava;
+import sample.model.board.EnumState;
 import sample.model.factory.GameFactory;
 import sample.model.player.Player;
 
@@ -37,7 +38,9 @@ public class TacticRandom implements FireTactics, Serializable {
         } while (tilesShot[x][y]);
         //System.out.println("AI shoot on "+x+";"+y+" with random tactic");
         tilesShot[x][y] = true;
-        p.shoot(battle,x,y);
+        if (p.shoot(battle, x, y) == EnumState.HIT.ordinal()) {
+            System.out.println("aaa");
+        }
     }
 
 }

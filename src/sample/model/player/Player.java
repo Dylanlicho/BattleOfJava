@@ -26,8 +26,8 @@ public abstract class Player  implements Serializable {
         setWin(true);
     }
 
-    public void shoot(BattleOfJava battle, int x, int y){
-        battle.shoot(this, x, y);
+    public int shoot(BattleOfJava battle, int x, int y){
+        return battle.shoot(this, x, y);
     }
 
     public int getNum() {
