@@ -41,20 +41,9 @@ public class BattleOfJava extends Observable implements Serializable {
         j1 = new Human(1);
         j2 = new AI(2);
         startNewGame(1,GameFactory.TACTICRANDOM);
-        ////////////////// Pour les tests ///////////////////
-         currentPlayer = j1; ////////////////////////////////
-        //////Avouez c'est beau et vous êtes jaloux/////////
+        currentPlayer = j1;
         setAge(GameFactory.CENTURY15S);
     }
-
-    public Board getBoard(Player player) {
-        if(player.getNum() == 1) {
-            return boardJ1;
-        }else{
-            return boardJ2;
-        }
-    }
-
 
     /**
      * start a new game
@@ -72,6 +61,22 @@ public class BattleOfJava extends Observable implements Serializable {
         notifyObservers();
     }
 
+    /**
+     * Set the position of a ship to te player
+     * @param p player
+     * @param s ship to place
+     * @param x x-axes
+     * @param y y-axes
+     */
+    public void setShipPosition(Player p, Ship s, int x, int y) {
+        if(p == j1){
+            boardJ1.setShipPosition(s, x, y);
+        }
+        if(p == j2){
+            boardJ2.setShipPosition(s, x, y);
+        }
+    }
+
     public void setTactic(int IAtactic) {
         if (j1.getType().equals(GameFactory.AITYPE)) ((AI)j1).setTactic(IAtactic);
         if (j2.getType().equals(GameFactory.AITYPE)) ((AI)j2).setTactic(IAtactic);
@@ -87,10 +92,6 @@ public class BattleOfJava extends Observable implements Serializable {
         boardJ2.setAge(age);
         boardJ1.setAge(age);
         boardJ2.setAge(age);
-    }
-
-    public Player getCurrentPlayer(){
-        return currentPlayer;
     }
 
     /**
@@ -149,6 +150,17 @@ public class BattleOfJava extends Observable implements Serializable {
      */
     public void save() {}
 
+    public Board getBoard(Player player) {
+        if(player.getNum() == 1) {
+            return boardJ1;
+        }else{
+            return boardJ2;
+        }
+    }
+
+    public Player getCurrentPlayer(){
+        return currentPlayer;
+    }
 
     public Tile getTileBoardJ1(int x, int y) {
         return boardJ1.getTile(x, y);
