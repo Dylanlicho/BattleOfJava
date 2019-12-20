@@ -18,19 +18,19 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Stage stageNewGame = new Stage();
 
-        VBox root = FXMLLoader.load(getClass().getResource("view/sample.fxml"));
+        VBox root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
 
         BattleOfJava battle = new BattleOfJava();
 
         //load du menu
         FXMLLoader loaderVueMenu = new FXMLLoader();
-        loaderVueMenu.setLocation(getClass().getResource("view/menu/viewMenu.fxml"));
+        loaderVueMenu.setLocation(getClass().getResource("/fxml/menu/viewMenu.fxml"));
         loaderVueMenu.setControllerFactory(iC->new ViewMenu(battle, primaryStage, stageNewGame));
         Node viewMenu = loaderVueMenu.load();
 
         //load of the boards view
         FXMLLoader loaderBattle = new FXMLLoader();
-        loaderBattle.setLocation(getClass().getResource("view/boards/viewBoards.fxml"));
+        loaderBattle.setLocation(getClass().getResource("/fxml/boards/viewBoards.fxml"));
         loaderBattle.setControllerFactory(iC->new ViewBoards(battle));
         Node viewBattle = loaderBattle.load();
 
@@ -40,7 +40,7 @@ public class Main extends Application {
 
         //load of the boards view
         FXMLLoader loaderNewGame = new FXMLLoader();
-        loaderNewGame.setLocation(getClass().getResource("view/newGame/viewNewGame.fxml"));
+        loaderNewGame.setLocation(getClass().getResource("/fxml/newGame/viewNewGame.fxml"));
         loaderNewGame.setControllerFactory(iC->new ViewNewGame(battle, primaryStage, stageNewGame));
         AnchorPane viewNewGame = loaderNewGame.load();
 
