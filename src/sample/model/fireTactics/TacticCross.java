@@ -131,7 +131,6 @@ public class TacticCross implements FireTactics, Serializable {
                 cross[i] = false;
             }
         }
-        System.out.println("AI shoot on "+x+";"+y+" with random tactic");
         tilesShot[x][y] = true;
         p.shoot(battle,x,y);
     }

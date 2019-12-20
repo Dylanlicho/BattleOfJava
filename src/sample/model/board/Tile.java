@@ -58,11 +58,6 @@ public abstract class Tile implements Cloneable, Serializable {
         return this.state == EnumState.EMPTY;
     }
 
-    public boolean hasHitShip() {
-        System.out.println(this.state);
-        return this.state == EnumState.MISS;
-    }
-
     /**
      * Set the state of the tile
      * @param state State of the tile

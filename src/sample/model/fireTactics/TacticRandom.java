@@ -38,9 +38,8 @@ public class TacticRandom implements FireTactics, Serializable {
         } while (tilesShot[x][y]);
         //System.out.println("AI shoot on "+x+";"+y+" with random tactic");
         tilesShot[x][y] = true;
-        if (p.shoot(battle, x, y) == EnumState.HIT.ordinal()) {
-            System.out.println("aaa");
-        }
+        p.shoot(battle, x, y);
+
     }
 
 }
