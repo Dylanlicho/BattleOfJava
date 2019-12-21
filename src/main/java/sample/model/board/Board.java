@@ -63,22 +63,22 @@ public class Board implements Serializable {
      * @param y y-axes
      */
     public int shoot(int x, int y) {
-        Tile t = getTile(x, y);
-        if(t.isEmpty()){    //the player never shot this tile
-            Ship s = getShip(x, y);
-            if(s != null){  // the player hits a ship
-                s.damage();
-                t.setState(EnumState.HIT);
+        if (x >= 0 && y >= 0 && x < GameFactory.BOARDSIZE && y < GameFactory.BOARDSIZE) {
+            Tile t = getTile(x, y);
+            if (t.isEmpty()) {    //the player never shot this tile
+                Ship s = getShip(x, y);
+                if (s != null) {  // the player hits a ship
+                    s.damage();
+                    t.setState(EnumState.HIT);
+                } else {           // the player hits nothing...
+                    t.setState(EnumState.MISS);
+                }
+                return t.getState().ordinal();
+            } else {
+                return -1;
             }
-            else{           // the player hits nothing...
-                t.setState(EnumState.MISS);
-            }
-            return t.getState().ordinal();
         }
-        else{
-            return -1;
-        }
-
+        return -1;
     }
 
     /**
