@@ -9,6 +9,28 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 public class BattleOfJavaTests {
 
     @Test
+    void setShipPositionNullPlayer() {
+
+        BattleOfJava boj = new BattleOfJava();
+        Ship s = EasyMock.createMock(Ship.class);
+        assertDoesNotThrow(() -> {
+            boj.setShipPosition(null, s, 0, 0);
+        });
+
+    }
+
+    @Test
+    void setShipPositionNullShip() {
+
+        BattleOfJava boj = new BattleOfJava();
+        Player p = EasyMock.createMock(Player.class);
+        assertDoesNotThrow(() -> {
+            boj.setShipPosition(p, null, 0, 0);
+        });
+
+    }
+
+    @Test
     void setShipPositionNegativeCoordinates() {
 
         BattleOfJava boj = new BattleOfJava();
