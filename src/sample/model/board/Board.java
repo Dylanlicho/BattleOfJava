@@ -68,17 +68,29 @@ public class Board implements Serializable {
             Ship s = getShip(x, y);
             if(s != null){  // the player hits a ship
                 s.damage();
-                t.setState(EnumState.HIT);
+                if (s.isSunk())
+                    sunkShip(s);
+                else t.setState(EnumState.HIT);
             }
-            else{           // the player hits nothing...
+            else    // the player hits nothing...
                 t.setState(EnumState.MISS);
-            }
             return t.getState().ordinal();
         }
-        else{
+        else
             return -1;
-        }
+    }
 
+    /**
+     * Sunk a ship
+     * @param s the ship to sunk
+     */
+    private void sunkShip(Ship s) {
+        for (int i = 0; i < s.getWidth(); i++) {
+            for (int j = 0; j < s.getHeigth(); j++) {
+                Tile t = getTile(s.getX() + i, s.getY() + j);
+                t.setState(EnumState.SUNK);
+            }
+        }
     }
 
     /**

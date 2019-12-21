@@ -73,6 +73,7 @@ public class ViewBoards implements Observer {
         initialiseBoard(grid2);
         initialiseShip();
         start.setAlignment(Pos.BOTTOM_CENTER);
+        text.setStyle("-fx-font-size : 15px;");
     }
 
     /**

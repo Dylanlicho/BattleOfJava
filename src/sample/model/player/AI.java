@@ -75,7 +75,7 @@ public class AI extends Player implements Serializable {
             while (!finish ) {
                 x = r.nextInt(GameFactory.BOARDSIZE);
                 y = r.nextInt(GameFactory.BOARDSIZE);
-                if (x >= 0 && x + s.getWidth() < GameFactory.BOARDSIZE - 1 && y >= 0 && y + s.getHeigth() < GameFactory.BOARDSIZE - 1) {
+                if (x >= 0 && x + s.getWidth() - 1 < GameFactory.BOARDSIZE && y >= 0 && y + s.getHeigth() - 1 < GameFactory.BOARDSIZE) {
                     s.setPosition(x, y);
                     if (!b.shipsSuperimposed())
                         finish = true;
