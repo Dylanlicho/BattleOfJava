@@ -1,7 +1,9 @@
 package sample.model.board;
 
 
-public class ConcreteTile extends Tile {
+import java.io.Serializable;
+
+public class ConcreteTile extends Tile implements Serializable {
 
     /**
      * The constructore of a concrete tile

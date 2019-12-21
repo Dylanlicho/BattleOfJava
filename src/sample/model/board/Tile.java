@@ -1,6 +1,10 @@
 package sample.model.board;
 
-public abstract class Tile implements Cloneable {
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
+import java.io.Serializable;
+
+public abstract class Tile implements Cloneable, Serializable {
 
     //The position in X of the Tile
     protected int x;

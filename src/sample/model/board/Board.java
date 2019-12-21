@@ -4,10 +4,11 @@ import sample.model.ship.AgeFactory;
 import sample.model.factory.GameFactory;
 import sample.model.ship.Ship;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Board {
+public class Board implements Serializable {
 
     //The list of the Tile which composed the board
     private List<Tile> tiles;
@@ -38,8 +39,22 @@ public class Board {
 
     }
 
+    /**
+     * Set the age of the board
+     * @param age age to set
+     */
     public void setAge(int age){
         shipsPlayer = AgeFactory.createNewShip(age);
+    }
+
+    /**
+     * Set the position of a ship in the board
+     * @param s ship to place
+     * @param x x-axes
+     * @param y y-axes
+     */
+    public void setShipPosition(Ship s, int x, int y) {
+        s.setPosition(x, y);
     }
 
     /**

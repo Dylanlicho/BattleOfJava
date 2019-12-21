@@ -1,6 +1,8 @@
 package sample.model.ship;
 
-public abstract class Ship {
+import java.io.Serializable;
+
+public abstract class Ship implements Serializable {
 
     protected int hp;
     protected int x;

@@ -11,9 +11,10 @@ import sample.model.player.Player;
 import sample.model.ship.Ship;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Observable;
 
-public class BattleOfJava extends Observable {
+public class BattleOfJava extends Observable implements Serializable {
 
 
     //The first player
@@ -40,20 +41,9 @@ public class BattleOfJava extends Observable {
         j1 = new Human(1);
         j2 = new AI(2);
         startNewGame(1,GameFactory.TACTICRANDOM);
-        ////////////////// Pour les tests ///////////////////
-         currentPlayer = j1; ////////////////////////////////
-        //////Avouez c'est beau et vous êtes jaloux/////////
+        currentPlayer = j1;
         setAge(GameFactory.CENTURY15S);
     }
-
-    public Board getBoard(Player player) {
-        if(player.getNum() == 1) {
-            return boardJ1;
-        }else{
-            return boardJ2;
-        }
-    }
-
 
     /**
      * start a new game
@@ -84,6 +74,22 @@ public class BattleOfJava extends Observable {
         notifyObservers();
     }
 
+    /**
+     * Set the position of a ship to te player
+     * @param p player
+     * @param s ship to place
+     * @param x x-axes
+     * @param y y-axes
+     */
+    public void setShipPosition(Player p, Ship s, int x, int y) {
+        if(p == j1){
+            boardJ1.setShipPosition(s, x, y);
+        }
+        if(p == j2){
+            boardJ2.setShipPosition(s, x, y);
+        }
+    }
+
     public void setTactic(int IAtactic) {
         if (j1.getType().equals(GameFactory.AITYPE)) ((AI)j1).setTactic(IAtactic);
         if (j2.getType().equals(GameFactory.AITYPE)) ((AI)j2).setTactic(IAtactic);
@@ -99,10 +105,6 @@ public class BattleOfJava extends Observable {
         boardJ2.setAge(age);
         boardJ1.setAge(age);
         boardJ2.setAge(age);
-    }
-
-    public Player getCurrentPlayer(){
-        return currentPlayer;
     }
 
     /**
@@ -125,10 +127,11 @@ public class BattleOfJava extends Observable {
      * @param x the position of the shoot in abscissa
      * @param y the position of the shoot in ordinate
      */
-    public void shoot(Player p, int x, int y) {
+    public int shoot(Player p, int x, int y) {
+        int res = -1;
         if (currentPlayer == p) {
             if (p == j1) {
-                int res = boardJ2.shoot(x, y);
+                res = boardJ2.shoot(x, y);
                 if (boardJ2.isAllSunk()) {
                     currentPlayer.win();
                 }
@@ -136,7 +139,7 @@ public class BattleOfJava extends Observable {
                     setCurrentPlayer(j2);
                 }
             } else {  // currentPlayer == j2
-                int res = boardJ1.shoot(x, y);
+                res = boardJ1.shoot(x, y);
                 if (boardJ1.isAllSunk()) {
                     currentPlayer.win();
                 }
@@ -147,6 +150,7 @@ public class BattleOfJava extends Observable {
         }
         setChanged();
         notifyObservers();
+        return res;
     }
 
     /**
@@ -165,6 +169,17 @@ public class BattleOfJava extends Observable {
      */
     public void save() {}
 
+    public Board getBoard(Player player) {
+        if(player.getNum() == 1) {
+            return boardJ1;
+        }else{
+            return boardJ2;
+        }
+    }
+
+    public Player getCurrentPlayer(){
+        return currentPlayer;
+    }
 
     public Tile getTileBoardJ1(int x, int y) {
         return boardJ1.getTile(x, y);
@@ -192,5 +207,27 @@ public class BattleOfJava extends Observable {
 
     public Player getJ2() {
         return j2;
+    }
+
+    public void setBattleOfJava(BattleOfJava battleOfJava) {
+
+        System.out.println("---------------------------------------------------");
+        System.out.println(battleOfJava.getBoard(j2).toString());
+        System.out.println("_____________________________________________________");
+        System.out.println(this.getBoard(j2).toString());
+
+        System.out.println("---------------------------------------------------");
+        j1 = battleOfJava.getJ1();
+        j2 = battleOfJava.getJ2();
+        currentPlayer = battleOfJava.getCurrentPlayer();
+        boardJ1 = battleOfJava.getBoard(j1);
+        boardJ2 = battleOfJava.getBoard(j2);
+        start = battleOfJava.getStart();
+        setChanged();
+        notifyObservers();
+    }
+
+    private boolean getStart() {
+        return start;
     }
 }

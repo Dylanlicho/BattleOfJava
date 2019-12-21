@@ -3,10 +3,12 @@ package sample.model.player;
 
 import sample.model.BattleOfJava;
 
+import java.io.Serializable;
+
 /**
  * The class of the player
  */
-public abstract class Player  {
+public abstract class Player  implements Serializable {
 
     int num;
     protected String type;
@@ -26,8 +28,8 @@ public abstract class Player  {
         setWin(true);
     }
 
-    public void shoot(BattleOfJava battle, int x, int y){
-        battle.shoot(this, x, y);
+    public int shoot(BattleOfJava battle, int x, int y){
+        return battle.shoot(this, x, y);
     }
 
     public int getNum() {

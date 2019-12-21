@@ -12,10 +12,12 @@ import sample.model.ship.Ship;
 import java.util.List;
 import java.util.Random;
 
+import java.io.Serializable;
+
 /**
  * The class of the AI player
  */
-public class AI extends Player {
+public class AI extends Player implements Serializable {
 
 
 
