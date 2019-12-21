@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.boards.ViewBoards">
+<AnchorPane fx:id="root" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.boards.ViewBoards">
 
       <GridPane fx:id="grid1" gridLinesVisible="true" layoutX="150.0" layoutY="338.0">
       </GridPane>
@@ -15,9 +11,9 @@
       <GridPane fx:id="grid2" gridLinesVisible="true" layoutX="150.0" layoutY="14.0">
       </GridPane>
 
-        <Label fx:id="text" layoutX="300.0" layoutY="320.0"/>
+        <Label fx:id="text" layoutX="300.0" layoutY="320.0" />
 
-      <Pane fx:id="paneShipJ1" layoutX="150.0" layoutY="338.0" >
+      <Pane fx:id="paneShipJ1" layoutX="150.0" layoutY="338.0">
       </Pane>
 
       <Pane fx:id="paneShipJ2" layoutX="150.0" layoutY="14.0">
@@ -28,5 +24,6 @@
 
       <GridPane fx:id="boardJ2" gridLinesVisible="false" layoutX="150.0" layoutY="14.0">
       </GridPane>
+   <Button fx:id="start" mnemonicParsing="false" onMouseClicked="#startClick" text="Start" />
 
 </AnchorPane>

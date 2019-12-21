@@ -21,7 +21,6 @@ public class TacticCross implements FireTactics {
             x = 0;
             y++;
         }
-        System.out.println("AI shoot on "+x+";"+y+" with cross tactic");
         p.shoot(battle,x,y);
     }
 }

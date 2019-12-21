@@ -21,7 +21,6 @@ public class TacticRandom implements  FireTactics {
             x = 0;
             y++;
         }
-        System.out.println("AI shoot on "+x+";"+y+" with random tactic");
         p.shoot(battle,x,y);
     }
 

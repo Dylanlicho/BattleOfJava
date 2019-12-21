@@ -129,4 +129,59 @@ public class Board {
     public List<Ship> getShips() {
         return shipsPlayer;
     }
+
+    /**
+     * check if one or several ships are superimposed
+     * @return true if one or several ships are superimposed
+     *         false if all the ship aren't superimposed
+     */
+    public boolean shipsSuperimposed() {
+        boolean find = false;
+        int i = 0, j;
+        Ship currentShip;
+        Ship s;
+        while (i < getShips().size() && !find) {
+            currentShip = getShips().get(i);
+            j = i + 1;
+            while(j < getShips().size() && !find) {
+                s = getShips().get(j);
+                if (superimposed(currentShip, s))
+                    find = true;
+                j++;
+            }
+            i++;
+        }
+        return find;
+    }
+
+    /**
+     * check if two ships are superimposed
+     * @param ship1 the first ship
+     * @param ship2 the second ship
+     * @return true is the ships are superimposed, false otherwise
+     */
+    public boolean superimposed(Ship ship1, Ship ship2) {
+        int x1, y1, w1, h1, x2, y2, w2, h2;
+        boolean superimposedX, superimposedY;
+        x1 = ship1.getX();
+        y1 = ship1.getY();
+        x2 = ship2.getX();
+        y2 = ship2.getY();
+        w1 = ship1.getWidth() - 1;
+        h1 = ship1.getHeigth() - 1;
+        w2 = ship2.getWidth() - 1;
+        h2 = ship2.getHeigth() - 1;
+
+        superimposedX = x1 <= x2 && x2 <= x1 + w1; //the ship 2 begin on the ship 1 in x
+        superimposedX = superimposedX || (x1 <= x2 + w2 && x2 + w2 <= x1 + w1); //the ship 2 finish on the ship 1 in x
+        superimposedX = superimposedX || (x2 <= x1 && x1 <= x2 + w2); //the ship 1 begin on the ship 2 in x
+        superimposedX = superimposedX || (x2 <= x1 + w1 && x1 + w1 <= x2 + w2); //the ship 1 finish on the ship 2 in x
+
+        superimposedY = y2 <= y1 && y1 <= y2 + h2; //the ship 2 begin on the ship 1 in y
+        superimposedY = superimposedY || (y2 <= y1 + h1 && y1 + h1 <= y2 + h2); //the ship 2 finish on the ship 1 in y
+        superimposedY = superimposedY || (y1 <= y2 && y2 <= y1 + h1); //the ship 1 begin on the ship 2 in y
+        superimposedY = superimposedY || (y1 <= y2 + h2 && y2 + h2 <= y1 + h1); //the ship 1 finish on the ship 2 in y
+
+        return superimposedX && superimposedY;
+    }
 }

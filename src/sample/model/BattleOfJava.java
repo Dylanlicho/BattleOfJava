@@ -65,7 +65,20 @@ public class BattleOfJava extends Observable {
         boardJ2 = new Board();
         setAge(century);
         setTactic(IAtactic);
-        setStart(true);
+        setStart(false);
+
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * start the game (the ships are placed)
+     */
+    public void start(Player p) {
+        p.setReadyToPlay(true);
+        if (getJ1().isReadyToPlay() && getJ2().isReadyToPlay()) {
+            setStart(true);
+        }
 
         setChanged();
         notifyObservers();
@@ -93,13 +106,19 @@ public class BattleOfJava extends Observable {
     }
 
     /**
-     * Set the position of a ship
+     * Set the position of a ship only if the position is on the board
      * @param p the player who will move a ship
      * @param s the ship which is moved
      * @param x the new X position
      * @param y the new Y position
      */
-    public void setPosition(Player p, Ship s, int x, int y) {}
+    public void setPosition(Player p, Ship s, int x, int y) {
+        if (x >= 0 && x + s.getWidth() < GameFactory.BOARDSIZE - 1 && y >= 0 && y + s.getHeigth() < GameFactory.BOARDSIZE - 1)
+            s.setPosition(x,y);
+
+        setChanged();
+        notifyObservers();
+    }
 
     /**
      * The player shoot
