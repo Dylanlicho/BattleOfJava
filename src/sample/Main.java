@@ -16,7 +16,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-//        Stage stageNewGame = new Stage();
         VBox root = FXMLLoader.load(getClass().getResource("view/sample.fxml"));
 
         BattleOfJava battle = new BattleOfJava();
@@ -35,8 +34,6 @@ public class Main extends Application {
         Node viewBattle = loaderBattle.load();
 
         root.getChildren().addAll(viewMenu, viewBattle);
-//        primaryStage.setTitle("Battle Of Java");
-//        primaryStage.setScene(new Scene(root, 600, 800));
 
         //load of the boards view
         FXMLLoader loaderNewGame = new FXMLLoader();

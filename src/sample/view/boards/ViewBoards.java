@@ -104,7 +104,10 @@ public class ViewBoards implements Observer {
         Board board = battleOfJava.getBoard(battleOfJava.getJ1());
         ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
         for(Ship s: ships) {
-            Image image = new Image("images/"+s.getType()+".png");
+            String nameImage;
+            if (s.isSunk()) nameImage = "images/sunk_ship.png";
+            else nameImage = "images/drakkar.png";
+            Image image = new Image(nameImage);
             ImageView imageView = new ImageView(image);
             imageView.setX(GameFactory.TILEWIDTH * s.getX());
             imageView.setY(GameFactory.TILEWIDTH * s.getY());
@@ -162,7 +165,7 @@ public class ViewBoards implements Observer {
         ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
         for(Ship s: ships) {
             if (s.isSunk()) {
-                Image image = new Image("images/" + s.getType() + ".png");
+                Image image = new Image("images/sunk_ship.png");
                 ImageView imageView = new ImageView(image);
                 imageView.setX(GameFactory.TILEWIDTH * s.getX());
                 imageView.setY(GameFactory.TILEWIDTH * s.getY());
@@ -348,7 +351,7 @@ public class ViewBoards implements Observer {
      * if is the turn of the turn of the IA, the IA shoot
      */
     private void checkAIShoot() {
-        if (!getBattleOfJava().getCurrentPlayer().asWin()) {
+        if (!getBattleOfJava().getJ2().asWin() || !getBattleOfJava().getJ1().asWin()) {
             Player currentPlayer = getBattleOfJava().getCurrentPlayer();
             if (currentPlayer.getType().equals(GameFactory.AITYPE))
                 ((AI) currentPlayer).shoot(getBattleOfJava());
@@ -378,9 +381,16 @@ public class ViewBoards implements Observer {
         }
     }
 
+    private void removeConstraintsBoard(GridPane board) {
+        board.getChildren().clear();
+        board.getRowConstraints().remove(0, board.getRowConstraints().size());
+        board.getColumnConstraints().remove(0, board.getColumnConstraints().size());
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         setBattleOfJava((BattleOfJava)o);
+        System.out.println(getBoardJ1().getRowConstraints().size());
         if(battleOfJava.isStart()) {
             updateGrid();
             updateText();
@@ -388,6 +398,8 @@ public class ViewBoards implements Observer {
             start.setVisible(false);
         }
         else {
+            removeConstraintsBoard(getBoardJ1());
+            removeConstraintsBoard(getBoardJ2());
             start.setVisible(true);
             updatePlacementShip();
         }

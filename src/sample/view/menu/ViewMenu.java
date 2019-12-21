@@ -163,8 +163,6 @@ public class ViewMenu implements Observer {
      * create a new game
      */
     public void newGame() {
-//        getStage().close();
-//        g().show();
         getStage().setScene(getScene());
     }
 
