@@ -14,10 +14,15 @@ public class GameFactory {
     public static final int CENTURY15S = 15;
     public static final int CENTURY20S = 20;
 
+    // Tactics
     public static final int TACTICRANDOM = 0;
     public static final int TACTICCROSS = 1;
 
+    // Number of player playing
+    public static final int NBPLAYER1 = 1;
+    public static final int NBPLAYER2 = 2;
 
+    // World size
     public static final float WORLDWIDTH = 600f;
     public static final float WORLDHEIGHT = 800f;
     public static final int MARGIN = 40;
@@ -28,6 +33,11 @@ public class GameFactory {
     public static final int NBTILE = 100;
 
     public static final int NBSHIP = 7;
+
+    // Sprite of the ship use
+    public static final String SPRITESHIP = "images/drakkar.png";
+    public static final String SPRITESUNK = "images/cruiser.png";
+
 
     public static final String HUMANTYPE = "human";
     public static final String AITYPE = "ai";
