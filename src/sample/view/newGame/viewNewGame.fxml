@@ -3,8 +3,14 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.newGame.ViewNewGame">
+   <Label fx:id="title" alignment="CENTER" text="Battle of Java" prefWidth="600">
+      <font>
+         <Font size="59.0" />
+      </font>
+   </Label>
     <VBox fx:id="box" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
         <children>
             <HBox fx:id="centuries" prefHeight="100.0" prefWidth="200.0">
@@ -25,7 +31,7 @@
                   <HBox.margin>
                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                   </HBox.margin></Button>
-                    <Button fx:id="cross"  mnemonicParsing="false" onMouseClicked="#crossClick" text="Cross">
+                    <Button fx:id="cross" mnemonicParsing="false" onMouseClicked="#crossClick" text="Cross">
                   <HBox.margin>
                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                   </HBox.margin></Button>

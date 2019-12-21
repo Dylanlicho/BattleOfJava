@@ -2,6 +2,7 @@ package sample.view.newGame;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
@@ -17,8 +18,8 @@ import java.util.Observer;
 public class ViewNewGame implements Observer {
 
     private BattleOfJava battleOfJava;
-    private Stage stageBoards;
     private Stage stage;
+    private Scene scene;
     private int century;
     private int tactic;
 
@@ -40,12 +41,14 @@ public class ViewNewGame implements Observer {
     private Button random;
     @FXML
     private Button cross;
+    @FXML
+    private Label title;
 
 
-    public ViewNewGame(BattleOfJava battleOfJava, Stage stageBoards, Stage stage) {
+    public ViewNewGame(BattleOfJava battleOfJava, Stage stage, Scene scene) {
         setBattleOfJava(battleOfJava);
-        setStageBoards(stageBoards);
         setStage(stage);
+        setScene(scene);
         getBattleOfJava().addObserver(this);
 
         century = GameFactory.CENTURY15S;
@@ -61,6 +64,7 @@ public class ViewNewGame implements Observer {
         getCentury20().setAlignment(Pos.CENTER);
         getRandom().setAlignment(Pos.CENTER);
         getCross().setAlignment(Pos.CENTER);
+        getTitle().setAlignment(Pos.TOP_CENTER);
 
         getCentury15().setStyle(styleBorder);
         getRandom().setStyle(styleBorder);
@@ -91,8 +95,9 @@ public class ViewNewGame implements Observer {
     }
 
     public void startClick() {
-        getStage().close();
-        getStageBoards().show();
+//        getStage().close();
+//        getStageBoards().show();
+        getStage().setScene(getScene());
         getBattleOfJava().startNewGame(century, tactic);
     }
 
@@ -104,20 +109,20 @@ public class ViewNewGame implements Observer {
         this.battleOfJava = battleOfJava;
     }
 
-    public Stage getStageBoards() {
-        return stageBoards;
-    }
-
-    public void setStageBoards(Stage stageBoards) {
-        this.stageBoards = stageBoards;
-    }
-
     public Stage getStage() {
         return stage;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setStage(Stage stageBoards) {
+        this.stage = stageBoards;
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
     }
 
     public VBox getBox() {
@@ -150,6 +155,10 @@ public class ViewNewGame implements Observer {
 
     public Button getCross() {
         return cross;
+    }
+
+    public Label getTitle() {
+        return title;
     }
 
     @Override

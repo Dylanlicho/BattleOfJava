@@ -16,8 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Stage stageNewGame = new Stage();
-
+//        Stage stageNewGame = new Stage();
         VBox root = FXMLLoader.load(getClass().getResource("view/sample.fxml"));
 
         BattleOfJava battle = new BattleOfJava();
@@ -25,7 +24,8 @@ public class Main extends Application {
         //load du menu
         FXMLLoader loaderVueMenu = new FXMLLoader();
         loaderVueMenu.setLocation(getClass().getResource("view/menu/viewMenu.fxml"));
-        loaderVueMenu.setControllerFactory(iC->new ViewMenu(battle, primaryStage, stageNewGame));
+        ViewMenu vm = new ViewMenu(battle, primaryStage, null);
+        loaderVueMenu.setControllerFactory(iC->vm);
         Node viewMenu = loaderVueMenu.load();
 
         //load of the boards view
@@ -35,19 +35,24 @@ public class Main extends Application {
         Node viewBattle = loaderBattle.load();
 
         root.getChildren().addAll(viewMenu, viewBattle);
-        primaryStage.setTitle("Battle Of Java");
-        primaryStage.setScene(new Scene(root, 600, 800));
+//        primaryStage.setTitle("Battle Of Java");
+//        primaryStage.setScene(new Scene(root, 600, 800));
 
         //load of the boards view
         FXMLLoader loaderNewGame = new FXMLLoader();
         loaderNewGame.setLocation(getClass().getResource("view/newGame/viewNewGame.fxml"));
-        loaderNewGame.setControllerFactory(iC->new ViewNewGame(battle, primaryStage, stageNewGame));
+        ViewNewGame vng = new ViewNewGame(battle, primaryStage, null);
+        loaderNewGame.setControllerFactory(iC->vng);
         AnchorPane viewNewGame = loaderNewGame.load();
 
-        stageNewGame.setTitle("Battle Of Java");
-        stageNewGame.setScene(new Scene(viewNewGame, 600, 800));
+        Scene sceneNewGame = new Scene(viewNewGame, 600, 800);
+        Scene sceneBattle = new Scene(root, 600, 800);
+        vm.setScene(sceneNewGame);
+        vng.setScene(sceneBattle);
 
-        stageNewGame.show();
+        primaryStage.setTitle("Battle Of Java");
+        primaryStage.setScene(sceneNewGame);
+        primaryStage.show();
     }
 
 
