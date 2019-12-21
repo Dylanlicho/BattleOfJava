@@ -125,7 +125,7 @@ public class Board implements Serializable {
         boolean find = false;
         Ship ship = null;
         int i = 0;
-        while (!find && i < GameFactory.NBSHIP) {
+        while (!find && i < GameFactory.NBSHIP && !this.shipsPlayer.isEmpty()) {
             ship = shipsPlayer.get(i);
             int xS = ship.getX();
             int yS = ship.getY();
