@@ -104,7 +104,7 @@ public class ViewBoards implements Observer {
         Board board = battleOfJava.getBoard(battleOfJava.getJ1());
         ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
         for(Ship s: ships) {
-            Image image = new Image("images/"+s.getType()+".png");
+            Image image = new Image(GameFactory.SPRITESHIP);
             ImageView imageView = new ImageView(image);
             imageView.setX(GameFactory.TILEWIDTH * s.getX());
             imageView.setY(GameFactory.TILEWIDTH * s.getY());
@@ -162,7 +162,7 @@ public class ViewBoards implements Observer {
         ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
         for(Ship s: ships) {
             if (s.isSunk()) {
-                Image image = new Image("images/" + s.getType() + ".png");
+                Image image = new Image(GameFactory.SPRITESHIP);
                 ImageView imageView = new ImageView(image);
                 imageView.setX(GameFactory.TILEWIDTH * s.getX());
                 imageView.setY(GameFactory.TILEWIDTH * s.getY());
