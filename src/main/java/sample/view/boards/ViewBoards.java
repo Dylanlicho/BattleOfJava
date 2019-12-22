@@ -1,6 +1,8 @@
 package sample.view.boards;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +23,8 @@ import java.util.Observer;
  * The view of the battle (the two boards)
  */
 public class ViewBoards implements Observer {
+
+    private static final int SIZETUILE = 30;
 
     //The game
     private BattleOfJava battleOfJava;
@@ -46,6 +50,12 @@ public class ViewBoards implements Observer {
     @FXML
     private Pane paneShipJ2;
 
+    private double startDragX;
+    private double startDragY;
+
+    @FXML
+    private Button start; //The start button to validate the placement of the ships and begin the game
+
     /**
      * The constructor of the view
      * @param battleOfJava the game
@@ -59,12 +69,11 @@ public class ViewBoards implements Observer {
      * Initialisation of the boards
      */
     public void initialize() {
-        initialiseBoard(getBoardJ1());
-        initialiseBoard(getBoardJ2());
         initialiseBoard(grid1);
         initialiseBoard(grid2);
-        addPanes();
         initialiseShip();
+        start.setAlignment(Pos.BOTTOM_CENTER);
+        text.setStyle("-fx-font-size : 15px;");
     }
 
     /**
@@ -80,46 +89,22 @@ public class ViewBoards implements Observer {
         }
     }
 
+    /**
+     * initialization of the ships
+     */
     public void initialiseShip(){
         initializeShipJ1();
         initializeShipJ2();
-//        Board board = battleOfJava.getBoard(battleOfJava.getCurrentPlayer());
-//        ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
-//        for(Ship s: ships) {
-//            Image image = new Image("images/"+s.getType()+".png");
-//            ImageView imageView = new ImageView(image);
-//            imageView.setX(GameFactory.TILEWIDTH * s.getX());
-//            imageView.setY(GameFactory.TILEWIDTH * s.getY());
-//
-//            if (s.getOrientation() == GameFactory.TOP || s.getOrientation() == GameFactory.BOTTOM) {
-//                if (s.getOrientation() == GameFactory.BOTTOM) {
-//                    imageView.setFitHeight(s.getHeigth()* GameFactory.TILEWIDTH);
-//                }
-//                if (s.getOrientation() == GameFactory.TOP) {
-//                    imageView.setFitHeight(-s.getHeigth()* GameFactory.TILEWIDTH);
-//                }
-//                imageView.setFitWidth(s.getWidth()* GameFactory.TILEWIDTH);
-//            }
-//            if (s.getOrientation() == GameFactory.LEFT || s.getOrientation() == GameFactory.RIGHT) {
-//
-//                if (s.getOrientation() == GameFactory.LEFT) {
-//                    imageView.setFitWidth(-s.getWidth()* GameFactory.TILEWIDTH);
-//                }
-//                if (s.getOrientation() == GameFactory.RIGHT) {
-//                    imageView.setFitWidth(s.getWidth()* GameFactory.TILEWIDTH);
-//                }
-//                imageView.setFitHeight(s.getHeigth()* GameFactory.TILEWIDTH);
-//            }
-//
-//            this.paneShipJ1.getChildren().add(imageView);
-//        }
     }
 
+    /**
+     * initialization of the ships of the player 2
+     */
     private void initializeShipJ1() {
         Board board = battleOfJava.getBoard(battleOfJava.getJ1());
         ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
         for(Ship s: ships) {
-            Image image = new Image("images/" +s.getType()+".png");
+            Image image = new Image(GameFactory.SPRITESHIP);
             ImageView imageView = new ImageView(image);
             imageView.setX(GameFactory.TILEWIDTH * s.getX());
             imageView.setY(GameFactory.TILEWIDTH * s.getY());
@@ -127,16 +112,57 @@ public class ViewBoards implements Observer {
             imageView.setFitHeight(s.getHeigth()* GameFactory.TILEWIDTH);
             imageView.setFitWidth(s.getWidth()* GameFactory.TILEWIDTH);
 
+            if(!getBattleOfJava().isStart()) setDragImage(s, imageView);
+
             this.paneShipJ1.getChildren().add(imageView);
         }
     }
 
+    /**
+     * Set the movement of the ships of the player 1
+     * @param s the ship that is moved
+     * @param imageView the imageView corresponding to the ship
+     */
+    private void setDragImage(Ship s, ImageView imageView) {
+        imageView.setOnMousePressed(e-> {
+            startDragX = e.getSceneX();
+            startDragY = e.getSceneY();
+        });
+
+        imageView.setOnMouseDragged(e -> {
+            double X = e.getSceneX();
+            double dep = X - startDragX;
+            if (dep > SIZETUILE && imageView.getX() + (s.getWidth()*SIZETUILE) < GameFactory.BOARDSIZE*SIZETUILE) {
+                imageView.setX(imageView.getX()+SIZETUILE);
+                startDragX = X;
+            } else if (dep < -SIZETUILE && imageView.getX() >= SIZETUILE) {
+                imageView.setX(imageView.getX()-SIZETUILE);
+                startDragX = X;
+            }
+
+            double Y = e.getSceneY();
+            dep = Y - startDragY;
+            if (dep > SIZETUILE && imageView.getY() + (s.getHeigth()*SIZETUILE) < GameFactory.BOARDSIZE*SIZETUILE) {
+                imageView.setY(imageView.getY() + SIZETUILE);
+                startDragY = Y;
+            } else if (dep < -SIZETUILE && imageView.getY() >= SIZETUILE) {
+                imageView.setY(imageView.getY()-SIZETUILE);
+                startDragY = Y;
+            }
+        });
+
+        imageView.setOnMouseReleased(e -> battleOfJava.setPosition(battleOfJava.getJ1(), s, (int)imageView.getX()/SIZETUILE, (int)imageView.getY()/SIZETUILE));
+    }
+
+    /**
+     * initialization of the ships of the player 2
+     */
     private void initializeShipJ2() {
         Board board = battleOfJava.getBoard(battleOfJava.getJ2());
         ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
         for(Ship s: ships) {
             if (s.isSunk()) {
-                Image image = new Image("images/" + s.getType() + ".png");
+                Image image = new Image(GameFactory.SPRITESHIP);
                 ImageView imageView = new ImageView(image);
                 imageView.setX(GameFactory.TILEWIDTH * s.getX());
                 imageView.setY(GameFactory.TILEWIDTH * s.getY());
@@ -240,6 +266,15 @@ public class ViewBoards implements Observer {
     }
 
     /**
+     * the start button is clicked
+     */
+    public void startClick() {
+        initialiseBoard(getBoardJ1());
+        initialiseBoard(getBoardJ2());
+        getBattleOfJava().start(getBattleOfJava().getJ1());
+    }
+
+    /**
      * set the game (battle of java)
      * @param battleOfJava the new battle of java
      */
@@ -280,12 +315,18 @@ public class ViewBoards implements Observer {
         addPanes();
     }
 
+    /**
+     * update the ships
+     */
     private void updateShip() {
         paneShipJ1.getChildren().clear();
         paneShipJ2.getChildren().clear();
         initialiseShip();
     }
 
+    /**
+     * update the text
+     */
     private void updateText() {
         Player current = getBattleOfJava().getCurrentPlayer();
 
@@ -293,16 +334,19 @@ public class ViewBoards implements Observer {
             if (current.asWin())
                 text.setText("you win !");
             else
-                text.setText("it's your turn");
+                text.setText("It's your turn.");
         }
         if (getBattleOfJava().getCurrentPlayer().getNum() == 2) {
             if (current.asWin())
                 text.setText("J2 win !");
             else
-                text.setText("it's J2's turn");
+                text.setText("It's J2's turn.");
         }
     }
 
+    /**
+     * if is the turn of the turn of the IA, the IA shoot
+     */
     private void checkAIShoot() {
         if (!getBattleOfJava().getCurrentPlayer().asWin()) {
             Player currentPlayer = getBattleOfJava().getCurrentPlayer();
@@ -311,12 +355,42 @@ public class ViewBoards implements Observer {
         }
     }
 
+    /**
+     * update the placement of the ships
+     */
+    private void updatePlacementShip() {
+        if (!getBattleOfJava().getJ1().isReadyToPlay()) {
+            Board b = getBattleOfJava().getBoard(getBattleOfJava().getJ1()); //the board of the player 1
+            if (b.shipsSuperimposed()) {
+                text.setText("Ships shouldn't be superimposed.");
+                start.setDisable(true);
+            } else {
+                text.setText("You can place your ships.");
+                start.setDisable(false);
+            }
+        }
+        if (!getBattleOfJava().getJ2().isReadyToPlay()){
+            Player p = getBattleOfJava().getJ2();
+            if (p.getType().equals(GameFactory.AITYPE)) {
+                ((AI)p).placeShips(getBattleOfJava().getBoard(p));
+                getBattleOfJava().start(p);
+            }
+        }
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         setBattleOfJava((BattleOfJava)o);
-        updateGrid();
+        if(battleOfJava.isStart()) {
+            updateGrid();
+            updateText();
+            checkAIShoot();
+            start.setVisible(false);
+        }
+        else {
+            start.setVisible(true);
+            updatePlacementShip();
+        }
         updateShip();
-        updateText();
-        checkAIShoot();
     }
 }

@@ -2,10 +2,15 @@ package sample.model.player;
 
 
 import sample.model.BattleOfJava;
+import sample.model.board.Board;
 import sample.model.factory.GameFactory;
 import sample.model.fireTactics.FireTactics;
 import sample.model.fireTactics.TacticCross;
 import sample.model.fireTactics.TacticRandom;
+import sample.model.ship.Ship;
+
+import java.util.List;
+import java.util.Random;
 
 import java.io.Serializable;
 
@@ -56,6 +61,28 @@ public class AI extends Player implements Serializable {
      */
     public FireTactics getFireTactic () {
         return tactic;
+    }
+
+    /**
+     * placement of the ships
+     * @param b the boad of the player
+     */
+    public void placeShips(Board b) {
+        Random r = new Random();
+        boolean finish = false;
+        int x, y;
+        for (Ship s : b.getShips()) {
+            while (!finish ) {
+                x = r.nextInt(GameFactory.BOARDSIZE);
+                y = r.nextInt(GameFactory.BOARDSIZE);
+                if (x >= 0 && x + s.getWidth() - 1 < GameFactory.BOARDSIZE && y >= 0 && y + s.getHeigth() - 1 < GameFactory.BOARDSIZE) {
+                    s.setPosition(x, y);
+                    if (!b.shipsSuperimposed())
+                        finish = true;
+                }
+            }
+            finish = false;
+        }
     }
 
 }

@@ -13,10 +13,12 @@ public abstract class Player  implements Serializable {
     int num;
     protected String type;
     protected boolean win;
+    protected boolean readyToPlay;
 
     public Player(int num){
         this.num = num;
         setWin(false);
+        setReadyToPlay(false);
     }
 
     /**
@@ -44,5 +46,13 @@ public abstract class Player  implements Serializable {
 
     public void setWin(boolean win) {
         this.win = win;
+    }
+
+    public boolean isReadyToPlay() {
+        return readyToPlay;
+    }
+
+    public void setReadyToPlay(boolean readyToPlay) {
+        this.readyToPlay = readyToPlay;
     }
 }

@@ -1,6 +1,7 @@
 package sample.view.menu;
 
 import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.model.BattleOfJava;
@@ -17,7 +18,7 @@ public class ViewMenu implements Observer {
     //The stage
     private Stage stage;
     //The stage of the view of the new game
-    private Stage stageNewGame;
+    private Scene scene;
 
 
     /**
@@ -25,9 +26,9 @@ public class ViewMenu implements Observer {
      * @param battleOfJava the battle of java
      * @param s the stage
      */
-    public ViewMenu (BattleOfJava battleOfJava, Stage s, Stage stageNewGame) {
+    public ViewMenu (BattleOfJava battleOfJava, Stage s, Scene scene) {
         setBattleOfJava(battleOfJava);
-        setStageNewGame(stageNewGame);
+        setScene(scene);
         setStage(s);
         getBattleOfJava().addObserver(this);
     }
@@ -69,16 +70,16 @@ public class ViewMenu implements Observer {
     /**
      * @return the stage of the view of the new game
      */
-    public Stage getStageNewGame() {
-        return stageNewGame;
+    public Scene getScene() {
+        return scene;
     }
 
     /**
      * set the stage of the new game
-     * @param stageNewGame the stage
+     * @param scene the stage
      */
-    public void setStageNewGame(Stage stageNewGame) {
-        this.stageNewGame = stageNewGame;
+    public void setScene(Scene scene) {
+        this.scene = scene;
     }
 
 
@@ -162,8 +163,9 @@ public class ViewMenu implements Observer {
      * create a new game
      */
     public void newGame() {
-        getStage().close();
-        getStageNewGame().show();
+//        getStage().close();
+//        g().show();
+        getStage().setScene(getScene());
     }
 
 
