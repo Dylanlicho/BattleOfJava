@@ -25,7 +25,8 @@ public class Main extends Application {
         //load du menu
         FXMLLoader loaderVueMenu = new FXMLLoader();
         loaderVueMenu.setLocation(getClass().getResource("/fxml/menu/viewMenu.fxml"));
-        loaderVueMenu.setControllerFactory(iC->new ViewMenu(battle, primaryStage, stageNewGame));
+        ViewMenu vm = new ViewMenu(battle, primaryStage, null);
+        loaderVueMenu.setControllerFactory(iC->vm);
         Node viewMenu = loaderVueMenu.load();
 
         //load of the boards view
@@ -41,7 +42,8 @@ public class Main extends Application {
         //load of the boards view
         FXMLLoader loaderNewGame = new FXMLLoader();
         loaderNewGame.setLocation(getClass().getResource("/fxml/newGame/viewNewGame.fxml"));
-        loaderNewGame.setControllerFactory(iC->new ViewNewGame(battle, primaryStage, stageNewGame));
+        ViewNewGame vng = new ViewNewGame(battle, primaryStage, null);
+        loaderNewGame.setControllerFactory(iC->vng);
         AnchorPane viewNewGame = loaderNewGame.load();
 
         Scene sceneNewGame = new Scene(viewNewGame, 600, 800);
