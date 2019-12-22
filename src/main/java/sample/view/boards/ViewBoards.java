@@ -43,6 +43,10 @@ public class ViewBoards implements Observer {
 
     @FXML
     private Label text;
+    @FXML
+    public Label shipSunkByJ2;
+    @FXML
+    public Label shipSunkByJ1;
 
     // The pane to place ship
     @FXML
@@ -73,6 +77,8 @@ public class ViewBoards implements Observer {
         initialiseBoard(grid2);
         initialiseShip();
         start.setAlignment(Pos.BOTTOM_CENTER);
+        shipSunkByJ2.setStyle("-fx-font-size : 15px;");
+        shipSunkByJ1.setStyle("-fx-font-size : 15px;");
         text.setStyle("-fx-font-size : 18px; -fx-font-weight: bold;");
     }
 
@@ -98,7 +104,7 @@ public class ViewBoards implements Observer {
     }
 
     /**
-     * initialization of the ships of the player 2
+     * initialization of the ships of the player 1
      */
     private void initializeShipJ1() {
         Board board = battleOfJava.getBoard(battleOfJava.getJ1());
@@ -348,6 +354,20 @@ public class ViewBoards implements Observer {
     }
 
     /**
+     * update the shipSunkByJ2
+     */
+    private void updateShipSunkByJ2(){
+        shipSunkByJ2.setText("Number of ship sunk by the opponent: "+getBattleOfJava().getNbShipSunkJ2RMI());
+    }
+
+    /**
+     * update the shipSunkByJ1
+     */
+    private void updateShipSunkByJ1(){
+        shipSunkByJ1.setText("Number of ship you sunk: "+getBattleOfJava().getNbShipSunkJ1RMI());
+    }
+
+    /**
      * if is the turn of the turn of the IA, the IA shoot
      */
     private void checkAIShoot() {
@@ -394,12 +414,18 @@ public class ViewBoards implements Observer {
             updateGrid();
             updateText();
             checkAIShoot();
+            updateShipSunkByJ1();
+            updateShipSunkByJ2();
+            shipSunkByJ1.setVisible(true);
+            shipSunkByJ2.setVisible(true);
             start.setVisible(false);
         }
         else {
             resetGrid(getBoardJ1());
             resetGrid(getBoardJ2());
             start.setVisible(true);
+            shipSunkByJ1.setVisible(false);
+            shipSunkByJ2.setVisible(false);
             updatePlacementShip();
         }
         updateShip();

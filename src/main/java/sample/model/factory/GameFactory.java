@@ -38,6 +38,8 @@ public class GameFactory {
     public static final String SPRITESHIP = "images/drakkar.png";
     public static final String SPRITESUNK = "images/cruiser.png";
 
+    // Port use for RMI
+    public static final int RMIPORT = 8081;
 
     public static final String HUMANTYPE = "human";
     public static final String AITYPE = "ai";

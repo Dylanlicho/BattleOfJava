@@ -23,7 +23,6 @@ public class ViewNewGame implements Observer {
     private Scene scene;
     private int century;
     private int tactic;
-    private int nbPlayer;
 
     private String styleBorder = "-fx-border-color: red; -fx-border-width: 2px;";
 
@@ -33,8 +32,6 @@ public class ViewNewGame implements Observer {
     private HBox centuries;
     @FXML
     private HBox tactics;
-    @FXML
-    public HBox NBPlayers;
     @FXML
     private Button start;
     @FXML
@@ -48,11 +45,6 @@ public class ViewNewGame implements Observer {
     @FXML
     private Label title;
 
-    @FXML
-    public Button player1;
-    @FXML
-    public Button player2;
-
     public ViewNewGame(BattleOfJava battleOfJava, Stage stage, Scene scene) {
         setBattleOfJava(battleOfJava);
         setStage(stage);
@@ -61,26 +53,21 @@ public class ViewNewGame implements Observer {
 
         century = GameFactory.CENTURY15S;
         tactic = GameFactory.TACTICRANDOM;
-        nbPlayer = GameFactory.NBPLAYER1;
     }
 
     public void initialize() {
         getBox().setAlignment(Pos.CENTER);
         getCenturies().setAlignment(Pos.CENTER);
         getTactics().setAlignment(Pos.CENTER);
-        getNBPlayers().setAlignment(Pos.CENTER);
         getStart().setAlignment(Pos.CENTER);
         getCentury15().setAlignment(Pos.CENTER);
         getCentury20().setAlignment(Pos.CENTER);
         getRandom().setAlignment(Pos.CENTER);
         getCross().setAlignment(Pos.CENTER);
-        getPlayer1().setAlignment(Pos.CENTER);
-        getPlayer2().setAlignment(Pos.CENTER);
         getTitle().setAlignment(Pos.TOP_CENTER);
 
         getCentury15().setStyle(styleBorder);
         getRandom().setStyle(styleBorder);
-        getPlayer1().setStyle(styleBorder);
     }
 
 
@@ -106,18 +93,6 @@ public class ViewNewGame implements Observer {
         getCross().setStyle(styleBorder);
         getRandom().setStyle("");
         tactic = GameFactory.TACTICCROSS;
-    }
-
-    public void player1Click(){
-        getPlayer1().setStyle(styleBorder);
-        getPlayer2().setStyle("");
-        nbPlayer = GameFactory.NBPLAYER1;
-    }
-
-    public void player2Click(){
-        getPlayer2().setStyle(styleBorder);
-        getPlayer1().setStyle("");
-        nbPlayer = GameFactory.NBPLAYER2;
     }
 
     public void startClick() {
@@ -162,10 +137,6 @@ public class ViewNewGame implements Observer {
         return tactics;
     }
 
-    private HBox getNBPlayers() {
-        return NBPlayers;
-    }
-
     public Button getStart() {
         return start;
     }
@@ -184,14 +155,6 @@ public class ViewNewGame implements Observer {
 
     public Button getCross() {
         return cross;
-    }
-
-    public Button getPlayer1(){
-        return player1;
-    }
-
-    public Button getPlayer2() {
-        return player2;
     }
 
     public Label getTitle() {

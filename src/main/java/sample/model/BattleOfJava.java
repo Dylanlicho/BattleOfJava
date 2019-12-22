@@ -9,11 +9,19 @@ import sample.model.player.AI;
 import sample.model.player.Human;
 import sample.model.player.Player;
 import sample.model.ship.Ship;
+import sample.rmi.server.Instructions;
 
+import java.io.File;
+import java.io.Serializable;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.io.*;
 import java.util.Observable;
 
-public class BattleOfJava extends Observable implements Serializable {
+public class BattleOfJava extends Observable implements Serializable, Instructions, Intermediary{
 
 
     //The first player
@@ -28,7 +36,6 @@ public class BattleOfJava extends Observable implements Serializable {
     private Board boardJ2;
     //The game is start
     private boolean start;
-
 
 
     /**
@@ -90,8 +97,6 @@ public class BattleOfJava extends Observable implements Serializable {
      */
     public void setAge(int age) {
         // Age of the ship
-        boardJ1.setAge(age);
-        boardJ2.setAge(age);
         boardJ1.setAge(age);
         boardJ2.setAge(age);
     }
@@ -183,6 +188,56 @@ public class BattleOfJava extends Observable implements Serializable {
         }
     }
 
+    /**
+     * @return The number of ship sunk of the player 2 with the help of RMI
+     */
+    public int getNbShipSunkJ2RMI(){
+        try {
+            Registry registry = LocateRegistry.getRegistry(GameFactory.RMIPORT);
+            BattleOfJava battle = (BattleOfJava)registry.lookup("instructions");
+            // By the point of view of the other player, he is the player 1,
+            // so we look the ship sunk on the board of the player 1
+            return battle.getNbShipSunkJ1();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
+     * @return The number of ship sunk of the player 1 with the help of RMI
+     */
+    public int getNbShipSunkJ1RMI(){
+        try {
+            Registry registry = LocateRegistry.getRegistry(GameFactory.RMIPORT);
+            BattleOfJava battle = (BattleOfJava)registry.lookup("instructions");
+            // By the point of view of the other player, he is the player 2,
+            // so we look the ship sunk on the board of the player 2
+            return battle.getNbShipSunkJ2();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    /**
+     * @return Return the number of the ship sunk of the player 1
+     */
+    public int getNbShipSunkJ1(){
+        return getBoard(j1).getNbShipSunk();
+    }
+
+    /**
+     * @return Return the number of the ship sunk of the player 2
+     */
+    public int getNbShipSunkJ2(){
+        return getBoard(j2).getNbShipSunk();
+    }
+
     public Player getCurrentPlayer(){
         return currentPlayer;
     }
@@ -228,5 +283,10 @@ public class BattleOfJava extends Observable implements Serializable {
 
     private boolean getStart() {
         return start;
+    }
+
+    @Override
+    public BattleOfJava getBattleOfJava() throws RemoteException {
+        return this;
     }
 }

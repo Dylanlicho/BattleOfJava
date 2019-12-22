@@ -14,11 +14,13 @@ public class Board implements Serializable {
     private List<Tile> tiles;
     //The list of the ships
     private List<Ship> shipsPlayer;
+    private int nbShipSunk;
 
     /**
      * Constructor of the Board
      */
     public Board() {
+        this.nbShipSunk = 0;
         this.tiles = new ArrayList<>();
         Tile t = new ConcreteTile(0, 0);
         this.tiles.add(t);
@@ -93,6 +95,14 @@ public class Board implements Serializable {
                 t.setState(EnumState.SUNK);
             }
         }
+        nbShipSunk++;
+    }
+
+    /**
+     * @return the number of ship sunk of the player
+     */
+    public int getNbShipSunk() {
+        return nbShipSunk;
     }
 
     /**
@@ -100,12 +110,12 @@ public class Board implements Serializable {
      * @return true if all ships are sunk
      */
     public boolean isAllSunk() {
-        boolean isAllSunk = true;
-        for(Ship s : shipsPlayer){
+        boolean isAllSunk = getNbShipSunk() == GameFactory.NBSHIP;
+        /*for(Ship s : shipsPlayer){
             if(!s.isSunk()){
                 isAllSunk = false;
             }
-        }
+        }*/
         return isAllSunk;
     }
 
