@@ -119,7 +119,6 @@ public class BattleOfJava extends Observable implements Serializable {
      * @param y the new Y position
      */
     public void setPosition(Player p, Ship s, int x, int y) {
-        System.out.println("place the ship to "+x+";"+y);
         if (x >= 0 && x + s.getWidth() - 1 < GameFactory.BOARDSIZE && y >= 0 && y + s.getHeigth() - 1 < GameFactory.BOARDSIZE)
             s.setPosition(x,y);
 

@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.boards.ViewBoards">
 
-      <GridPane fx:id="grid1" gridLinesVisible="true" layoutX="150.0" layoutY="348.0">
+      <GridPane fx:id="grid1" gridLinesVisible="true" layoutX="150.0" layoutY="350.0">
       </GridPane>
 
       <GridPane fx:id="grid2" gridLinesVisible="true" layoutX="150.0" layoutY="14.0">
@@ -13,18 +13,18 @@
 
         <Label fx:id="text" alignment="CENTER" contentDisplay="CENTER" layoutX="150.0" layoutY="320.0" minWidth="300" prefWidth="300" textAlignment="CENTER" />
 
-      <Pane fx:id="paneShipJ1" layoutX="150.0" layoutY="348.0">
+      <Pane fx:id="paneShipJ1" layoutX="150.0" layoutY="350.0">
       </Pane>
 
       <Pane fx:id="paneShipJ2" layoutX="150.0" layoutY="14.0">
       </Pane>
 
-      <GridPane fx:id="boardJ1" layoutX="150.0" layoutY="348.0">
+      <GridPane fx:id="boardJ1" layoutX="150.0" layoutY="350">
       </GridPane>
 
       <GridPane fx:id="boardJ2" layoutX="150.0" layoutY="14.0">
       </GridPane>
 
-      <Button fx:id="start" mnemonicParsing="false" onMouseClicked="#startClick" text="Start" layoutX="280" layoutY="658.0" />
+      <Button fx:id="start" mnemonicParsing="false" onMouseClicked="#startClick" text="Start" layoutX="280" layoutY="660.0" />
 
 </AnchorPane>

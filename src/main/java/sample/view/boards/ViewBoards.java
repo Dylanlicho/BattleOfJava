@@ -73,7 +73,7 @@ public class ViewBoards implements Observer {
         initialiseBoard(grid2);
         initialiseShip();
         start.setAlignment(Pos.BOTTOM_CENTER);
-        text.setStyle("-fx-font-size : 15px;");
+        text.setStyle("-fx-font-size : 18px; -fx-font-weight: bold;");
     }
 
     /**
@@ -165,7 +165,8 @@ public class ViewBoards implements Observer {
         ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
         for(Ship s: ships) {
             if (s.isSunk()) {
-                Image image = new Image("images/" + s.getType() + ".png");
+                Image image = new Image("images/sunk_ship.png");
+//                Image image = new Image("images/" + s.getType() + ".png");
                 ImageView imageView = new ImageView(image);
                 imageView.setX(GameFactory.TILEWIDTH * s.getX());
                 imageView.setY(GameFactory.TILEWIDTH * s.getY());
@@ -381,6 +382,12 @@ public class ViewBoards implements Observer {
         }
     }
 
+    private void resetGrid(GridPane g) {
+        g.getChildren().clear();
+        g.getRowConstraints().remove(0, g.getRowConstraints().size());
+        g.getColumnConstraints().remove(0, g.getColumnConstraints().size());
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         setBattleOfJava((BattleOfJava)o);
@@ -391,6 +398,8 @@ public class ViewBoards implements Observer {
             start.setVisible(false);
         }
         else {
+            resetGrid(getBoardJ1());
+            resetGrid(getBoardJ2());
             start.setVisible(true);
             updatePlacementShip();
         }

@@ -36,12 +36,12 @@ public class AgeFactory {
         ArrayList<Ship> ships = new ArrayList<Ship>();
 
         Sailboat sailboat = new Sailboat(1,1,8,GameFactory.LEFT);
-        Caravelle caravelle1 = new Caravelle(1,0,4,GameFactory.LEFT);
-        Caravelle caravelle2 = new Caravelle(1,2,4,GameFactory.LEFT);
-        Flette flette1 = new Flette(1,4,0,GameFactory.LEFT);
-        Flette flette2 = new Flette(1,4,2,GameFactory.LEFT);
-        Flette flette3 = new Flette(1,4,4,GameFactory.LEFT);
-        Drakkar drakkar = new Drakkar(1,9,2,GameFactory.LEFT);
+        Caravelle caravelle1 = new Caravelle(2,0,4,GameFactory.LEFT);
+        Caravelle caravelle2 = new Caravelle(2,2,4,GameFactory.LEFT);
+        Flette flette1 = new Flette(3,4,0,GameFactory.LEFT);
+        Flette flette2 = new Flette(3,4,2,GameFactory.LEFT);
+        Flette flette3 = new Flette(4,4,4,GameFactory.LEFT);
+        Drakkar drakkar = new Drakkar(4,9,2,GameFactory.LEFT);
 
         ships.add(sailboat);
         ships.add(caravelle1);

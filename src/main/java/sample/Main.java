@@ -16,7 +16,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        VBox root = FXMLLoader.load(getClass().getResource("view/sample.fxml"));
+        VBox root = FXMLLoader.load(getClass().getResource("/fxml/sample.fxml"));
 
         BattleOfJava battle = new BattleOfJava();
 
