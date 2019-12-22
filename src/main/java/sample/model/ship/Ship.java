@@ -21,7 +21,7 @@ public abstract class Ship implements Serializable {
      * @param heigth Height of the ship
      * @param orientation Orientation of the ship
      */
-    public Ship(int hp, int x, int y, int width, int heigth, int orientation,String type){
+    public Ship(int hp, int x, int y, int width, int heigth, int orientation, String type){
         this.hp = hp;
         this.x = x;
         this.y = y;

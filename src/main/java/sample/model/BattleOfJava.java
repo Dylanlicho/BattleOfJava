@@ -56,7 +56,8 @@ public class BattleOfJava extends Observable implements Serializable {
         setAge(century);
         setTactic(IAtactic);
         setStart(false);
-
+        this.j1.setWin(false);
+        this.j2.setWin(false);
         setChanged();
         notifyObservers();
     }
