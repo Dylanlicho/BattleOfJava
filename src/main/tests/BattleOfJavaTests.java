@@ -1,5 +1,4 @@
 import org.easymock.EasyMock;
-import org.junit.Test;
 import org.junit.jupiter.api.Test;
 import sample.model.BattleOfJava;
 import sample.model.player.Player;
@@ -15,18 +14,7 @@ public class BattleOfJavaTests {
         BattleOfJava boj = new BattleOfJava();
         Ship s = EasyMock.createMock(Ship.class);
         assertDoesNotThrow(() -> {
-            boj.setShipPosition(null, s, 0, 0);
-        });
-
-    }
-
-    @Test
-    void setShipPositionNullShip() {
-
-        BattleOfJava boj = new BattleOfJava();
-        Player p = EasyMock.createMock(Player.class);
-        assertDoesNotThrow(() -> {
-            boj.setShipPosition(p, null, 0, 0);
+            boj.setPosition(null,0, 0);
         });
 
     }
@@ -35,10 +23,9 @@ public class BattleOfJavaTests {
     void setShipPositionNegativeCoordinates() {
 
         BattleOfJava boj = new BattleOfJava();
-        Player p = EasyMock.createMock(Player.class);
         Ship s = EasyMock.createMock(Ship.class);
         assertDoesNotThrow(() -> {
-            boj.setShipPosition(p, s, -10, -10);
+            boj.setPosition(s, -10, -10);
         });
 
     }
@@ -47,10 +34,9 @@ public class BattleOfJavaTests {
     void setShipPositionTooBigCoordinates() {
 
         BattleOfJava boj = new BattleOfJava();
-        Player p = EasyMock.createMock(Player.class);
         Ship s = EasyMock.createMock(Ship.class);
         assertDoesNotThrow(() -> {
-            boj.setShipPosition(p, s, 10000000, 10000000);
+            boj.setPosition(s, 10000000, 10000000);
         });
     }
 
