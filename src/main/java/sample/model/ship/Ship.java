@@ -68,10 +68,6 @@ public abstract class Ship implements Serializable {
         return width;
     }
 
-    public String getType(){
-        return type;
-    }
-
     public int getHeigth() {
         return heigth;
     }

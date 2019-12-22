@@ -19,8 +19,6 @@ import java.io.Serializable;
  */
 public class AI extends Player implements Serializable {
 
-
-
     //The fire tactic of the AI
     private FireTactics tactic;
 
@@ -29,6 +27,10 @@ public class AI extends Player implements Serializable {
         type = GameFactory.AITYPE;
     }
 
+    /**
+     * change the tactic of fire of the IA
+     * @param tactic the num of the tactic
+     */
     public void setTactic(int tactic) {
         switch (tactic) {
             case GameFactory.TACTICRANDOM:
@@ -42,6 +44,10 @@ public class AI extends Player implements Serializable {
         }
     }
 
+    /**
+     * shoot of the IA
+     * @param battle the BattleOfJava
+     */
     public void shoot(BattleOfJava battle) {
         tactic.shoot(battle, this);
     }
@@ -62,6 +68,7 @@ public class AI extends Player implements Serializable {
     public FireTactics getFireTactic () {
         return tactic;
     }
+
 
     /**
      * placement of the ships

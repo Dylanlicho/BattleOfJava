@@ -154,7 +154,7 @@ public class ViewBoards implements Observer {
             }
         });
 
-        imageView.setOnMouseReleased(e -> battleOfJava.setPosition(battleOfJava.getJ1(), s, (int)imageView.getX()/SIZETUILE, (int)imageView.getY()/SIZETUILE));
+        imageView.setOnMouseReleased(e -> battleOfJava.setPosition(s, (int)imageView.getX()/SIZETUILE, (int)imageView.getY()/SIZETUILE));
     }
 
     /**
@@ -166,7 +166,6 @@ public class ViewBoards implements Observer {
         for(Ship s: ships) {
             if (s.isSunk()) {
                 Image image = new Image("images/sunk_ship.png");
-//                Image image = new Image("images/" + s.getType() + ".png");
                 ImageView imageView = new ImageView(image);
                 imageView.setX(GameFactory.TILEWIDTH * s.getX());
                 imageView.setY(GameFactory.TILEWIDTH * s.getY());

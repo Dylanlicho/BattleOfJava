@@ -12,6 +12,7 @@ public class Board implements Serializable {
 
     //The list of the Tile which composed the board
     private List<Tile> tiles;
+    //The list of the ships
     private List<Ship> shipsPlayer;
 
     /**
@@ -154,6 +155,9 @@ public class Board implements Serializable {
         else return null;
     }
 
+    /**
+     * @return the list of the ships
+     */
     public List<Ship> getShips() {
         return shipsPlayer;
     }

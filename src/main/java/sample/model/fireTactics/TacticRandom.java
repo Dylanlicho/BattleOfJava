@@ -36,7 +36,6 @@ public class TacticRandom implements FireTactics, Serializable {
             x = random.nextInt(GameFactory.BOARDSIZE);
             y = random.nextInt(GameFactory.BOARDSIZE);
         } while (tilesShot[x][y]);
-        //System.out.println("AI shoot on "+x+";"+y+" with random tactic");
         tilesShot[x][y] = true;
         p.shoot(battle, x, y);
 

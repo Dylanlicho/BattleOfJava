@@ -95,31 +95,11 @@ public class ViewMenu implements Observer {
      * save a game
      */
     public void save() {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Enregistrer");
-//        File f = fileChooser.showSaveDialog(getStage());
-//        ObjectOutputStream flot;
-//        try {
-//            flot = new ObjectOutputStream(
-//                    new FileOutputStream(f));
-//            flot.writeObject(getBattleOfJava());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-        ObjectOutputStream flot;// On ouvre un filtre
         FileChooser fileChooser = new FileChooser();// Nous permet de choisir un fichier
         fileChooser.setTitle("Save");
         File file = fileChooser.showSaveDialog(stage);// On prend le fichier choisit
-        if (file != null) {
-            try {
-                flot = new ObjectOutputStream(new FileOutputStream(file));
-                flot.writeObject(getBattleOfJava());// On écrit tous ce qui est dans la classe principale dans le fichier
-                System.out.println("save");
-            } catch (IOException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+        getBattleOfJava().save(file);
+
     }
 
 
@@ -127,35 +107,10 @@ public class ViewMenu implements Observer {
      * load a game
      */
     public void load() {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setTitle("Open a file");
-//        File f = fileChooser.showOpenDialog(getStage());
-//
-//        ObjectInputStream flot;
-//        try {
-//            flot = new ObjectInputStream(
-//                    new FileInputStream(f));
-//            getBattleOfJava().ouvrirMelodie((BattleOfJava)(flot.readObject()));
-//        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-
         FileChooser fileChooser = new FileChooser();// Pour choisir le fichier à ouvrir
         fileChooser.setTitle("Ouvrir");
         File file = fileChooser.showOpenDialog(stage);// On prend le fichier à ouvrir
-        ObjectInputStream flot;// Filtre
-        if(file != null){
-            try {
-                flot = new ObjectInputStream(new FileInputStream(file));
-                BattleOfJava b = (BattleOfJava) (flot.readObject());// On lit le contenu du flot
-                battleOfJava.setBattleOfJava(b);// On construit la classe principale
-                System.out.println("load a game");
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+        getBattleOfJava().loadFile(file);
     }
 
 

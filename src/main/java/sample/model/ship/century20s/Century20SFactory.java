@@ -1,11 +1,6 @@
 package sample.model.ship.century20s;
 
 public class Century20SFactory {
-/*
-    public static final int WIDTHCORVETTE = 2;
-    public static final int WIDTHDESTROYER = 3;
-    public static final int WIDTHCRUISER = 4;
-    public static final int WIDTHIRONCLAD = 5;*/
 
     public static final int WIDTHCORVETTE = 2;
     public static final int WIDTHDESTROYER = 1;

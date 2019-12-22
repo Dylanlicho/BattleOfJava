@@ -9,5 +9,6 @@ import sample.model.player.Player;
  */
 public interface FireTactics {
 
+     //The shoot of the player
      void shoot(BattleOfJava battle, Player p);
 }

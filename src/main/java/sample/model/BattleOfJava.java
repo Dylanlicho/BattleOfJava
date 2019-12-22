@@ -10,8 +10,7 @@ import sample.model.player.Human;
 import sample.model.player.Player;
 import sample.model.ship.Ship;
 
-import java.io.File;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Observable;
 
 public class BattleOfJava extends Observable implements Serializable {
@@ -27,8 +26,6 @@ public class BattleOfJava extends Observable implements Serializable {
     private Board boardJ1;
     //The board of the player 2
     private Board boardJ2;
-    // Age of the ship
-    private int age;
     //The game is start
     private boolean start;
 
@@ -79,21 +76,9 @@ public class BattleOfJava extends Observable implements Serializable {
     }
 
     /**
-     * Set the position of a ship to te player
-     * @param p player
-     * @param s ship to place
-     * @param x x-axes
-     * @param y y-axes
+     * set the tactic of the IA
+     * @param IAtactic the num of the tactic
      */
-    public void setShipPosition(Player p, Ship s, int x, int y) {
-        if(p == j1){
-            boardJ1.setShipPosition(s, x, y);
-        }
-        if(p == j2){
-            boardJ2.setShipPosition(s, x, y);
-        }
-    }
-
     public void setTactic(int IAtactic) {
         if (j1.getType().equals(GameFactory.AITYPE)) ((AI)j1).setTactic(IAtactic);
         if (j2.getType().equals(GameFactory.AITYPE)) ((AI)j2).setTactic(IAtactic);
@@ -104,7 +89,7 @@ public class BattleOfJava extends Observable implements Serializable {
      * @param age the age
      */
     public void setAge(int age) {
-        this.age = age;
+        // Age of the ship
         boardJ1.setAge(age);
         boardJ2.setAge(age);
         boardJ1.setAge(age);
@@ -113,12 +98,11 @@ public class BattleOfJava extends Observable implements Serializable {
 
     /**
      * Set the position of a ship only if the position is on the board
-     * @param p the player who will move a ship
      * @param s the ship which is moved
      * @param x the new X position
      * @param y the new Y position
      */
-    public void setPosition(Player p, Ship s, int x, int y) {
+    public void setPosition(Ship s, int x, int y) {
         if (x >= 0 && x + s.getWidth() - 1 < GameFactory.BOARDSIZE && y >= 0 && y + s.getHeigth() - 1 < GameFactory.BOARDSIZE)
             s.setPosition(x,y);
 
@@ -158,20 +142,38 @@ public class BattleOfJava extends Observable implements Serializable {
     }
 
     /**
-     * load a game
-     */
-    public void load() { }
-
-    /**
      * load a file
      * @param file the name of the file
      */
-    public void loadFile(File file) { }
+    public void loadFile(File file) {
+        ObjectInputStream flot;// Filter
+        if(file != null){
+            try {
+                flot = new ObjectInputStream(new FileInputStream(file));
+                BattleOfJava b = (BattleOfJava) (flot.readObject());// On lit le contenu du flot
+                this.setBattleOfJava(b);// On construit la classe principale
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * save the game
+     * @param file the file where save the game
      */
-    public void save() {}
+    public void save(File file) {
+        ObjectOutputStream flot;// Opening of the flot
+
+        if (file != null) {
+            try {
+                flot = new ObjectOutputStream(new FileOutputStream(file));
+                flot.writeObject(this);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
 
     public Board getBoard(Player player) {
         if(player.getNum() == 1) {
@@ -214,13 +216,6 @@ public class BattleOfJava extends Observable implements Serializable {
     }
 
     public void setBattleOfJava(BattleOfJava battleOfJava) {
-
-        System.out.println("---------------------------------------------------");
-        System.out.println(battleOfJava.getBoard(j2).toString());
-        System.out.println("_____________________________________________________");
-        System.out.println(this.getBoard(j2).toString());
-
-        System.out.println("---------------------------------------------------");
         j1 = battleOfJava.getJ1();
         j2 = battleOfJava.getJ2();
         currentPlayer = battleOfJava.getCurrentPlayer();
