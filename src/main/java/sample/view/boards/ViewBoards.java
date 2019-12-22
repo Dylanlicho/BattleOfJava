@@ -357,14 +357,14 @@ public class ViewBoards implements Observer {
      * update the shipSunkByJ2
      */
     private void updateShipSunkByJ2(){
-        shipSunkByJ2.setText("Number of ship sunk by the opponent: "+getBattleOfJava().getNbShipSunkJ2RMI());
+        shipSunkByJ2.setText("Ship(s) sunk by the opponent: "+getBattleOfJava().getNbShipSunkJ2RMI());
     }
 
     /**
      * update the shipSunkByJ1
      */
     private void updateShipSunkByJ1(){
-        shipSunkByJ1.setText("Number of ship you sunk: "+getBattleOfJava().getNbShipSunkJ1RMI());
+        shipSunkByJ1.setText("Ship(s) you sunk: "+getBattleOfJava().getNbShipSunkJ1RMI());
     }
 
     /**
