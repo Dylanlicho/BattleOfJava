@@ -51,16 +51,6 @@ public class Board implements Serializable {
     }
 
     /**
-     * Set the position of a ship in the board
-     * @param s ship to place
-     * @param x x-axes
-     * @param y y-axes
-     */
-    public void setShipPosition(Ship s, int x, int y) {
-        s.setPosition(x, y);
-    }
-
-    /**
      * A player shoots a tile of the board
      * @param x x-axes
      * @param y y-axes
@@ -90,7 +80,7 @@ public class Board implements Serializable {
      */
     private void sunkShip(Ship s) {
         for (int i = 0; i < s.getWidth(); i++) {
-            for (int j = 0; j < s.getHeigth(); j++) {
+            for (int j = 0; j < s.getHeight(); j++) {
                 Tile t = getTile(s.getX() + i, s.getY() + j);
                 t.setState(EnumState.SUNK);
             }
@@ -154,7 +144,7 @@ public class Board implements Serializable {
             int xS = ship.getX();
             int yS = ship.getY();
             int w = ship.getWidth();
-            int h = ship.getHeigth();
+            int h = ship.getHeight();
 
             if (xS <= x && x <= xS + w - 1 && yS <= y && y <= yS + h - 1) {
                 find = true;
@@ -202,7 +192,7 @@ public class Board implements Serializable {
      * @param ship2 the second ship
      * @return true is the ships are superimposed, false otherwise
      */
-    public boolean superimposed(Ship ship1, Ship ship2) {
+    private boolean superimposed(Ship ship1, Ship ship2) {
         int x1, y1, w1, h1, x2, y2, w2, h2;
         boolean superimposedX, superimposedY;
         x1 = ship1.getX();
@@ -210,9 +200,9 @@ public class Board implements Serializable {
         x2 = ship2.getX();
         y2 = ship2.getY();
         w1 = ship1.getWidth() - 1;
-        h1 = ship1.getHeigth() - 1;
+        h1 = ship1.getHeight() - 1;
         w2 = ship2.getWidth() - 1;
-        h2 = ship2.getHeigth() - 1;
+        h2 = ship2.getHeight() - 1;
 
         superimposedX = x1 <= x2 && x2 <= x1 + w1; //the ship 2 begin on the ship 1 in x
         superimposedX = superimposedX || (x1 <= x2 + w2 && x2 + w2 <= x1 + w1); //the ship 2 finish on the ship 1 in x

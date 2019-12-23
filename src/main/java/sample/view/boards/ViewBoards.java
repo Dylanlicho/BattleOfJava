@@ -24,8 +24,6 @@ import java.util.Observer;
  */
 public class ViewBoards implements Observer {
 
-    private static final int SIZETUILE = 30;
-
     //The game
     private BattleOfJava battleOfJava;
 
@@ -98,7 +96,7 @@ public class ViewBoards implements Observer {
     /**
      * initialization of the ships
      */
-    public void initialiseShip(){
+    private void initialiseShip(){
         initializeShipJ1();
         initializeShipJ2();
     }
@@ -111,14 +109,14 @@ public class ViewBoards implements Observer {
         ArrayList<Ship> ships = (ArrayList<Ship>)board.getShips();
         for(Ship s: ships) {
             String nameImage;
-            if (s.isSunk()) nameImage = "images/sunk_ship.png";
+            if (s.isSunk()) nameImage = GameFactory.SPRITESUNK;
             else nameImage = GameFactory.SPRITESHIP;
             Image image = new Image(nameImage);
             ImageView imageView = new ImageView(image);
             imageView.setX(GameFactory.TILEWIDTH * s.getX());
             imageView.setY(GameFactory.TILEWIDTH * s.getY());
 
-            imageView.setFitHeight(s.getHeigth()* GameFactory.TILEWIDTH);
+            imageView.setFitHeight(s.getHeight()* GameFactory.TILEWIDTH);
             imageView.setFitWidth(s.getWidth()* GameFactory.TILEWIDTH);
 
             if(!getBattleOfJava().isStart()) setDragImage(s, imageView);
@@ -133,34 +131,36 @@ public class ViewBoards implements Observer {
      * @param imageView the imageView corresponding to the ship
      */
     private void setDragImage(Ship s, ImageView imageView) {
+
         imageView.setOnMousePressed(e-> {
             startDragX = e.getSceneX();
             startDragY = e.getSceneY();
         });
 
+
         imageView.setOnMouseDragged(e -> {
             double X = e.getSceneX();
             double dep = X - startDragX;
-            if (dep > SIZETUILE && imageView.getX() + (s.getWidth()*SIZETUILE) < GameFactory.BOARDSIZE*SIZETUILE) {
-                imageView.setX(imageView.getX()+SIZETUILE);
+            if (dep > GameFactory.TILEWIDTH && imageView.getX() + (s.getWidth()*GameFactory.TILEWIDTH) < GameFactory.BOARDSIZE*GameFactory.TILEWIDTH) {
+                imageView.setX(imageView.getX()+GameFactory.TILEWIDTH);
                 startDragX = X;
-            } else if (dep < -SIZETUILE && imageView.getX() >= SIZETUILE) {
-                imageView.setX(imageView.getX()-SIZETUILE);
+            } else if (dep < -GameFactory.TILEWIDTH && imageView.getX() >= GameFactory.TILEWIDTH) {
+                imageView.setX(imageView.getX()-GameFactory.TILEWIDTH);
                 startDragX = X;
             }
 
             double Y = e.getSceneY();
             dep = Y - startDragY;
-            if (dep > SIZETUILE && imageView.getY() + (s.getHeigth()*SIZETUILE) < GameFactory.BOARDSIZE*SIZETUILE) {
-                imageView.setY(imageView.getY() + SIZETUILE);
+            if (dep > GameFactory.TILEWIDTH && imageView.getY() + (s.getHeight()*GameFactory.TILEWIDTH) < GameFactory.BOARDSIZE*GameFactory.TILEWIDTH) {
+                imageView.setY(imageView.getY() + GameFactory.TILEWIDTH);
                 startDragY = Y;
-            } else if (dep < -SIZETUILE && imageView.getY() >= SIZETUILE) {
-                imageView.setY(imageView.getY()-SIZETUILE);
+            } else if (dep < -GameFactory.TILEWIDTH && imageView.getY() >= GameFactory.TILEWIDTH) {
+                imageView.setY(imageView.getY()-GameFactory.TILEWIDTH);
                 startDragY = Y;
             }
         });
 
-        imageView.setOnMouseReleased(e -> battleOfJava.setPosition(s, (int)imageView.getX()/SIZETUILE, (int)imageView.getY()/SIZETUILE));
+        imageView.setOnMouseReleased(e -> battleOfJava.setPosition(s, (int)imageView.getX()/GameFactory.TILEWIDTH, (int)imageView.getY()/GameFactory.TILEWIDTH));
     }
 
     /**
@@ -176,7 +176,7 @@ public class ViewBoards implements Observer {
                 imageView.setX(GameFactory.TILEWIDTH * s.getX());
                 imageView.setY(GameFactory.TILEWIDTH * s.getY());
 
-                imageView.setFitHeight(s.getHeigth() * GameFactory.TILEWIDTH);
+                imageView.setFitHeight(s.getHeight() * GameFactory.TILEWIDTH);
                 imageView.setFitWidth(s.getWidth() * GameFactory.TILEWIDTH);
 
                 this.paneShipJ2.getChildren().add(imageView);

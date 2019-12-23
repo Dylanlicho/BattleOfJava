@@ -68,7 +68,7 @@ abstract class Ship {
 	- int x
 	- int y
 	- int width
-	- int heigth
+	- int height
 	- int orientation
 	+ boolean isSunk()
 	+ void damage()

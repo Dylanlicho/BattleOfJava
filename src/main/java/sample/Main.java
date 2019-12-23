@@ -44,7 +44,7 @@ public class Main extends Application {
 
         root.getChildren().addAll(viewMenu, viewBattle);
 //        primaryStage.setTitle("Battle Of Java");
-//        primaryStage.setScene(new Scene(root, 600, 800));
+//        primaryStage.setScene(new Scene(root, GameFactory.WORLDWIDTH, GameFactory.WORLDHEIGHT));
 
         //load of the boards view
         FXMLLoader loaderNewGame = new FXMLLoader();
@@ -53,8 +53,8 @@ public class Main extends Application {
         loaderNewGame.setControllerFactory(iC->vng);
         AnchorPane viewNewGame = loaderNewGame.load();
 
-        Scene sceneNewGame = new Scene(viewNewGame, 600, 800);
-        Scene sceneBattle = new Scene(root, 600, 800);
+        Scene sceneNewGame = new Scene(viewNewGame, GameFactory.WORLDWIDTH, GameFactory.WORLDHEIGHT);
+        Scene sceneBattle = new Scene(root, GameFactory.WORLDWIDTH, GameFactory.WORLDHEIGHT);
         vm.setScene(sceneNewGame);
         vng.setScene(sceneBattle);
 

@@ -3,8 +3,7 @@ package sample.model.ship.century15s;
 import sample.model.ship.Ship;
 import sample.model.ship.ShipList;
 
-public class Flette extends Ship {
-
+public class Caravel extends Ship {
     /**
      * Constructor of the Ship
      *
@@ -13,10 +12,8 @@ public class Flette extends Ship {
      * @param y           Ordinate
      * @param orientation Orientation of the ship
      */
-    public Flette(int hp, int x, int y, int orientation) {
-        super(hp, x, y, Century15SFactory.WIDTHFLETTE, Century15SFactory.HEIGHTFLETTE,
-                orientation, ShipList.flette+"");
+    public Caravel(int hp, int x, int y, int orientation) {
+        super(hp, x, y, Century15SFactory.WIDTHCARAVEL, Century15SFactory.HEIGHTCARAVEL, orientation, ShipList.caravel+"");
     }
-
 
 }

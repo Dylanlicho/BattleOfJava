@@ -108,7 +108,7 @@ public class ViewMenu implements Observer {
      */
     public void load() {
         FileChooser fileChooser = new FileChooser();// Pour choisir le fichier à ouvrir
-        fileChooser.setTitle("Ouvrir");
+        fileChooser.setTitle("Open");
         File file = fileChooser.showOpenDialog(stage);// On prend le fichier à ouvrir
         getBattleOfJava().loadFile(file);
     }

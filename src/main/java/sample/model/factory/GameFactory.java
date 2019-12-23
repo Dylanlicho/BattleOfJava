@@ -18,14 +18,10 @@ public class GameFactory {
     public static final int TACTICRANDOM = 0;
     public static final int TACTICCROSS = 1;
 
-    // Number of player playing
-    public static final int NBPLAYER1 = 1;
-    public static final int NBPLAYER2 = 2;
 
     // World size
     public static final float WORLDWIDTH = 600f;
     public static final float WORLDHEIGHT = 800f;
-    public static final int MARGIN = 40;
 
     public static final int TILEWIDTH = 30;
 
@@ -36,7 +32,7 @@ public class GameFactory {
 
     // Sprite of the ship use
     public static final String SPRITESHIP = "images/drakkar.png";
-    public static final String SPRITESUNK = "images/cruiser.png";
+    public static final String SPRITESUNK = "images/sunk_ship.png";
 
     // Port use for RMI
     public static final int RMIPORT = 8081;

@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 public abstract class Player  implements Serializable {
 
-    int num;
+    private int num;
     protected String type;
     protected boolean win;
     protected boolean readyToPlay;

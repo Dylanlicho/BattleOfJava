@@ -1,0 +1,349 @@
+@startuml
+
+title __MODEL's Class Diagram__\n
+
+
+          class app.model.board.Board {
+              - nbShipSunk : int
+              - shipsPlayer : List<Ship>
+              - tiles : List<Tile>
+              + Board()
+              + getNbShipSunk()
+              + getShip()
+              + getShips()
+              + getTile()
+              + isAllSunk()
+              + setAge()
+              + setShipPosition()
+              + shipsSuperimposed()
+              + shoot()
+              + superimposed()
+              - sunkShip()
+          }
+
+
+
+
+          class app.model.board.ConcreteTile {
+              + ConcreteTile()
+              + clone()
+          }
+
+
+
+
+          enum app.model.board.EnumState {
+            EMPTY
+            HIT
+            MISS
+            SUNK
+          }
+
+
+
+          abstract class app.model.board.Tile {
+              # x : int
+              # y : int
+              + Tile()
+              {abstract} + clone()
+              + getState()
+              + getX()
+              + getY()
+              + isEmpty()
+              + setPosition()
+              + setState()
+          }
+
+  class app.model.factory.GameFactory {
+              {static} + AITYPE : String
+              {static} + BOARDSIZE : int
+              {static} + BOTTOM : int
+              {static} + CENTURY15S : int
+              {static} + CENTURY20S : int
+              {static} + HUMANTYPE : String
+              {static} + LEFT : int
+              {static} + MARGIN : int
+              {static} + NBPLAYER1 : int
+              {static} + NBPLAYER2 : int
+              {static} + NBSHIP : int
+              {static} + NBTILE : int
+              {static} + RIGHT : int
+              {static} + RMIPORT : int
+              {static} + SPRITESHIP : String
+              {static} + SPRITESUNK : String
+              {static} + TACTICCROSS : int
+              {static} + TACTICRANDOM : int
+              {static} + TILEWIDTH : int
+              {static} + TOP : int
+              {static} + WORLDHEIGHT : float
+              {static} + WORLDWIDTH : float
+          }
+
+interface app.model.fireTactics.FireTactics {
+              {abstract} + shoot()
+          }
+        
+  
+
+ 
+          class app.model.fireTactics.TacticCross {
+              {static} - CROSSDOWN : int
+              {static} - CROSSLEFT : int
+              {static} - CROSSRIGHT : int
+              {static} - CROSSUP : int
+              - cross : boolean[]
+              - random : Random
+              - shotInitCrossX : int
+              - shotInitCrossY : int
+              - tilesShot : boolean[][]
+              + TacticCross()
+              + shoot()
+          }
+        
+
+  
+          class app.model.fireTactics.TacticRandom {
+              - random : Random
+              - tilesShot : boolean[][]
+              + TacticRandom()
+              + shoot()
+          }
+
+          class app.model.player.AI {
+              + AI()
+              + getFireTactic()
+              + placeShips()
+              + setFireTactic()
+              + setTactic()
+              + shoot()
+          }
+
+  
+
+
+          class app.model.player.Human {
+              + Human()
+          }
+
+  
+
+
+          abstract class app.model.player.Player {
+              # readyToPlay : boolean
+              # type : String
+              # win : boolean
+              ~ num : int
+              + Player()
+              + asWin()
+              + getNum()
+              + getType()
+              + isReadyToPlay()
+              + setReadyToPlay()
+              + setWin()
+              + shoot()
+              + win()
+          }
+
+class app.model.ship.century15s.Caravel {
+                + Caravel()
+            }
+
+  
+
+
+
+            class app.model.ship.century15s.Century15SFactory {
+                {static} + HEIGHTCARAVEL : int
+                {static} + HEIGHTDRAKKAR : int
+                {static} + HEIGHTFLETTE : int
+                {static} + HEIGHTSAILBOAT : int
+                {static} + WIDTHCARAVEL : int
+                {static} + WIDTHDRAKKAR : int
+                {static} + WIDTHFLETTE : int
+                {static} + WIDTHSAILBOAT : int
+            }
+
+  
+
+
+            class app.model.ship.century15s.Drakkar {
+                + Drakkar()
+            }
+
+  
+
+
+            class app.model.ship.century15s.Flette {
+                + Flette()
+            }
+
+  
+
+
+            class app.model.ship.century15s.Sailboat {
+                + Sailboat()
+            }
+
+class app.model.ship.century20s.Century20SFactory {
+                {static} + HEIGHTCORVETTE : int
+                {static} + HEIGHTCRUISER : int
+                {static} + HEIGHTDESTROYER : int
+                {static} + HEIGHTIRONCLAD : int
+                {static} + WIDTHCORVETTE : int
+                {static} + WIDTHCRUISER : int
+                {static} + WIDTHDESTROYER : int
+                {static} + WIDTHIRONCLAD : int
+            }
+         
+  
+
+  
+            class app.model.ship.century20s.Corvette {
+                + Corvette()
+            }
+          
+  
+
+ 
+            class app.model.ship.century20s.Cruiser {
+                + Cruiser()
+            }
+        
+  
+
+  
+            class app.model.ship.century20s.Destroyer {
+                + Destroyer()
+            }
+          
+  
+
+  
+            class app.model.ship.century20s.Ironclad {
+                + Ironclad()
+            }
+
+class app.model.ship.AgeFactory {
+              {static} + createNewShip()
+              {static} - create15SShip()
+              {static} - create20SShip()
+          }
+       
+          enum app.model.ship.ShipList {
+                        caravel
+                        drakkar
+                        flette
+                        sailboat
+                        corvette
+                        cruiser
+                        destroyer
+                        ironclad
+                    }
+
+  
+          abstract class app.model.ship.Ship {
+              # height : int
+              # hp : int
+              # orientation : int
+              # type : String
+              # width : int
+              # x : int
+              # y : int
+              + Ship()
+              + damage()
+              + getHeight()
+              + getOrientation()
+              + getWidth()
+              + getX()
+              + getY()
+              + isSunk()
+              + setPosition()
+          }
+
+class app.model.BattleOfJava {
+            - start : boolean
+            + BattleOfJava()
+            + getBattleOfJava()
+            + getBoard()
+            + getCurrentPlayer()
+            + getJ1()
+            + getJ2()
+            + getNbShipSunkJ1()
+            + getNbShipSunkJ1RMI()
+            + getNbShipSunkJ2()
+            + getNbShipSunkJ2RMI()
+            + getTileBoardJ1()
+            + getTileBoardJ2()
+            + isStart()
+            + loadFile()
+            + save()
+            + setAge()
+            + setBattleOfJava()
+            + setCurrentPlayer()
+            + setPosition()
+            + setStart()
+            + setTactic()
+            + shoot()
+            + start()
+            + startNewGame()
+            - getStart()
+        }
+
+  
+
+        interface app.model.Intermediary {
+        }
+
+interface app.rmi.server.Instructions {
+            {abstract} + getBattleOfJava()
+        }
+
+interface java.io.Serializable {
+
+}
+
+abstract class java.util.Observable {
+
+}
+
+interface java.lang.Cloneable {
+
+}
+
+  app.model.board.Board .up.|> java.io.Serializable
+  app.model.board.ConcreteTile .up.|> java.io.Serializable
+  app.model.board.ConcreteTile -up-|> app.model.board.Tile
+  app.model.board.Tile .up.|> java.io.Serializable
+  app.model.board.Tile .up.|> java.lang.Cloneable
+  app.model.board.Tile o-- app.model.board.EnumState : state
+  app.model.fireTactics.TacticCross .up.|> app.model.fireTactics.FireTactics
+  app.model.fireTactics.TacticCross .up.|> java.io.Serializable
+  app.model.fireTactics.TacticRandom .up.|> app.model.fireTactics.FireTactics
+  app.model.fireTactics.TacticRandom .up.|> java.io.Serializable
+  app.model.player.AI .up.|> java.io.Serializable
+  app.model.player.AI -up-|> app.model.player.Player
+  app.model.player.AI o-- app.model.fireTactics.FireTactics : tactic
+  app.model.player.Human .up.|> java.io.Serializable
+  app.model.player.Human -up-|> app.model.player.Player
+  app.model.player.Player .up.|> java.io.Serializable
+  app.model.ship.century15s.Caravelle -up-|> app.model.ship.Ship
+  app.model.ship.century15s.Drakkar -up-|> app.model.ship.Ship
+  app.model.ship.century15s.Flette -up-|> app.model.ship.Ship
+  app.model.ship.century15s.Sailboat -up-|> app.model.ship.Ship
+  app.model.ship.century20s.Corvette -up-|> app.model.ship.Ship
+  app.model.ship.century20s.Cruiser -up-|> app.model.ship.Ship
+  app.model.ship.century20s.Destroyer -up-|> app.model.ship.Ship
+  app.model.ship.century20s.Ironclad -up-|> app.model.ship.Ship
+  app.model.ship.Ship .up.|> java.io.Serializable
+  app.model.BattleOfJava .up.|> app.model.Intermediary
+  app.model.BattleOfJava .up.|> app.rmi.server.Instructions
+  app.model.BattleOfJava .up.|> java.io.Serializable
+  app.model.BattleOfJava -up-|> java.util.Observable
+  app.model.BattleOfJava o-- app.model.board.Board : boardJ1
+  app.model.BattleOfJava o-- app.model.board.Board : boardJ2
+  app.model.BattleOfJava o-- app.model.player.Player : currentPlayer
+  app.model.BattleOfJava o-- app.model.player.Player : j1
+  app.model.BattleOfJava o-- app.model.player.Player : j2
+
+
+@enduml

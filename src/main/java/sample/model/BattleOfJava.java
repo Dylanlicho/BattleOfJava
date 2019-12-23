@@ -17,7 +17,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 import java.io.*;
 import java.util.Observable;
 
@@ -108,7 +107,7 @@ public class BattleOfJava extends Observable implements Serializable, Instructio
      * @param y the new Y position
      */
     public void setPosition(Ship s, int x, int y) {
-        if (x >= 0 && x + s.getWidth() - 1 < GameFactory.BOARDSIZE && y >= 0 && y + s.getHeigth() - 1 < GameFactory.BOARDSIZE)
+        if (x >= 0 && x + s.getWidth() - 1 < GameFactory.BOARDSIZE && y >= 0 && y + s.getHeight() - 1 < GameFactory.BOARDSIZE)
             s.setPosition(x,y);
 
         setChanged();

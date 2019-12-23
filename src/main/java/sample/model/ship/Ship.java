@@ -8,25 +8,25 @@ public abstract class Ship implements Serializable {
     protected int x;
     protected int y;
     protected int width;
-    protected int heigth;
+    protected int height;
     protected int orientation;
     protected String type;
 
     /**
      * Constructor of the Ship
      * @param hp Health point of the ship
-     * @param x  Absciss
+     * @param x  Abscissa
      * @param y Ordinate
      * @param width Width of the ship
-     * @param heigth Height of the ship
+     * @param height Height of the ship
      * @param orientation Orientation of the ship
      */
-    public Ship(int hp, int x, int y, int width, int heigth, int orientation, String type){
+    public Ship(int hp, int x, int y, int width, int height, int orientation, String type){
         this.hp = hp;
         this.x = x;
         this.y = y;
         this.width = width;
-        this.heigth = heigth;
+        this.height = height;
         this.orientation = orientation;
         this.type = type;
     }
@@ -48,7 +48,7 @@ public abstract class Ship implements Serializable {
 
     /**
      * Set the position of the ship
-     * @param x absissa
+     * @param x abscissa
      * @param y ordinate
      */
     public void setPosition(int x, int y){
@@ -68,8 +68,8 @@ public abstract class Ship implements Serializable {
         return width;
     }
 
-    public int getHeigth() {
-        return heigth;
+    public int getHeight() {
+        return height;
     }
 
     public int getOrientation() {
